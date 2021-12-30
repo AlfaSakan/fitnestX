@@ -19,12 +19,10 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 
 type LoginNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'LoginScreen'>;
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }: LoginNavigationType) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isHide, setIsHide] = useState(true);
-
-  const { navigation } = useNavigation<LoginNavigationType>();
 
   const handlePassword = (value: string): void => {
     setPassword(value);

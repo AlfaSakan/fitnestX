@@ -10,9 +10,7 @@ const { width, height } = Dimensions.get('screen');
 
 type OnboardingNavigationType = NativeStackScreenProps<OnboardingStackType, 'Onboarding2'>;
 
-export default function OnboardingScreen2() {
-  const { navigation } = useNavigation<OnboardingNavigationType>();
-
+export default function OnboardingScreen2({ navigation }: OnboardingNavigationType) {
   const footerOnPress = () => {
     navigation.navigate('Onboarding3');
   };

@@ -35,15 +35,13 @@ type RegisterAccountNavigationType = NativeStackScreenProps<
   'RegisterAccountData'
 >;
 
-export default function RegisterAccountData() {
+export default function RegisterAccountData({ navigation }: RegisterAccountNavigationType) {
   const [gender, setGender] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [inputWeight, setInputWeight] = useState('');
   const [inputHeight, setInputHeight] = useState('');
   const [isDropdownGender, setIsDropdownGender] = useState(false);
   const [isValid, setIsValid] = useState(false);
-
-  const { navigation } = useNavigation<RegisterAccountNavigationType>();
 
   const createOneButtonAlert = () =>
     Alert.alert('Please insert data incorrect way', '', [

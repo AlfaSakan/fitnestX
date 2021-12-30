@@ -4,12 +4,9 @@ import React from 'react';
 import { MainStackNavigation, SignupAndLoginStackType } from '../../types/navigation';
 import GreetingScreen from '../Master/GreetingScreen';
 
-type WelcomingNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'WelcomingScreen'>;
 type MainNavigationType = NativeStackScreenProps<MainStackNavigation, 'SignupAndLoginStackScreen'>;
 
-export default function WelcomingScreen() {
-  const { navigation } = useNavigation<MainNavigationType>();
-
+export default function WelcomingScreen({ navigation }: MainNavigationType) {
   const navigateToHome = () => {
     navigation.navigate('BottomNavbarStackScreen');
   };

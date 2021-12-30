@@ -23,15 +23,13 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 
 type SignupNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'SignupScreen'>;
 
-export default function SignupScreen() {
+export default function SignupScreen({ navigation }: SignupNavigationType) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isCheck, setIsCheck] = useState(false);
   const [isHidePassword, setIsHidePassword] = useState(true);
-
-  const { navigation } = useNavigation<SignupNavigationType>();
 
   const handleFirstName = (value: string) => {
     setFirstName(value);

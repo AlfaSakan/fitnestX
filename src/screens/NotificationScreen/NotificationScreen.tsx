@@ -13,9 +13,7 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 
 type NotificationNavigationType = NativeStackScreenProps<MainStackNavigation, 'NotificationScreen'>;
 
-export default function NotificationScreen() {
-  const { navigation } = useNavigation<NotificationNavigationType>();
-
+export default function NotificationScreen({ navigation }: NotificationNavigationType) {
   return (
     <View style={styles.container}>
       <HeaderTitleBack onPressBack={() => navigation.goBack()} />

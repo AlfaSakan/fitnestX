@@ -13,10 +13,9 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 
 type GetStartedNavigationType = NativeStackScreenProps<OnboardingStackType, 'GetStarted'>;
 
-export default function GetStartedScreen() {
+export default function GetStartedScreen({ navigation }: GetStartedNavigationType) {
   const [colorTransition, setColorTransition] = useState();
 
-  const { navigation } = useNavigation<GetStartedNavigationType>();
 
   const navigateNextScreen = () => {
     navigation.navigate('Onboarding1');

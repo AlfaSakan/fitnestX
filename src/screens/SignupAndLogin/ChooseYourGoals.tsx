@@ -56,10 +56,8 @@ type ChooseYourGoalsNavigationType = NativeStackScreenProps<
   'ChooseYourGoals'
 >;
 
-export default function ChooseYourGoals() {
+export default function ChooseYourGoals({ navigation }: ChooseYourGoalsNavigationType) {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const { navigation } = useNavigation<ChooseYourGoalsNavigationType>();
 
   const isCarousel = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;

@@ -1,3 +1,4 @@
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { workoutTrackerType } from '../screens/WorkoutTrackerScreen/dummyData';
 import { workoutType } from '../screens/WorkoutTrackerScreen/WorkoutDetail1';
 
@@ -38,9 +39,9 @@ export type HomeStackType = {
 };
 
 export type MainStackNavigation = {
-  WorkoutTrackerStackScreen: undefined;
+  WorkoutTrackerStackScreen: NavigatorScreenParams<WorkoutStackType>;
   BottomNavbarStackScreen: undefined;
-  OnboardingStackScreen: undefined;
-  SignupAndLoginStackScreen: undefined;
+  OnboardingStackScreen: NavigatorScreenParams<OnboardingStackType>;
+  SignupAndLoginStackScreen: NavigatorScreenParams<SignupAndLoginStackType>;
   NotificationScreen: undefined;
-}
+};

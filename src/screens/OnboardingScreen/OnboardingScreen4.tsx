@@ -8,15 +8,11 @@ import OnboardingTemplate from '../Master/OnboardingTemplate';
 
 const { width, height } = Dimensions.get('screen');
 
-type OnboardingNavigationType = NativeStackScreenProps<OnboardingStackType, 'Onboarding4'>;
 type MainNavigationType = NativeStackScreenProps<MainStackNavigation, 'OnboardingStackScreen'>;
 
-export default function OnboardingScreen4() {
-  const { navigation } = useNavigation<MainNavigationType>();
-
+export default function OnboardingScreen4({ navigation }: MainNavigationType) {
   const footerOnPress = () => {
-    // mainNavigation.navigation.navigate('SignupAndLoginStackScreen');
-    navigation.navigate('SignupAndLoginStackScreen');
+    navigation.navigate('SignupAndLoginStackScreen', { screen: 'SignupScreen' });
   };
 
   return (
