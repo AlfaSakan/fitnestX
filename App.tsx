@@ -6,8 +6,9 @@ import OnboardingStackScreen from './src/navigator/OnboardingStackScreen';
 import SignupAndLoginStackScreen from './src/navigator/SignupAndLoginStackScreen';
 import BottomNavbarStackScreen from './src/navigator/BottomNavbarStackScreen';
 import WorkoutTrackerStackScreen from './src/navigator/WorkoutTrackerStackScreen';
+import { MainStackNavigation } from './src/types/navigation';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MainStackNavigation>();
 
 export default function App() {
   return (
