@@ -10,14 +10,23 @@ import TypographyGradient from '../../components/Typography/TypographyGradient';
 import TypographyRegular from '../../components/Typography/TypographyRegular';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 import { ArrowDown2Icon } from '../../assets/Images/svg';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { HomeStackType } from '../../types/navigation';
+import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { HomeStackType, MainStackNavigation } from '../../types/navigation';
 
-type CongratulationNavigationType = NativeStackScreenProps<HomeStackType, 'CongratulationScreen'>;
+import { useAppSelector } from '../../app/hooks';
+import { useNavigation } from '@react-navigation/native';
+import WaterInTake from '../../components/HomeComponent/WaterInTake';
 
-export default function HomeScreen({ navigation }) {
+type HomeNavigationType = NativeStackScreenProps<HomeStackType, 'HomeScreen'>;
+
+export default function HomeScreen({ navigation }: HomeNavigationType) {
+  const { firstName, lastName } = useAppSelector((state) => state.user);
+
+  const mainNavigation =
+    useNavigation<NativeStackNavigationProp<MainStackNavigation, 'BottomNavbarStackScreen'>>();
+
   const navigateToNotif = () => {
-    navigation.navigate('NotificationScreen');
+    mainNavigation.navigate('NotificationScreen');
   };
   return (
     <View style={styles.container}>
@@ -32,7 +41,7 @@ export default function HomeScreen({ navigation }) {
               color={colors.gray2}
             />
             <TypographyRegular
-              text="Stefani Wong"
+              text={`${firstName} ${lastName}`}
               fontFamily={fontFamily.bold}
               fontSize={fontSize.h4}
               lineHeight={lineHeight.h4}
@@ -67,7 +76,7 @@ export default function HomeScreen({ navigation }) {
         />
         <Margin margin={15} />
         <View>
-          <View style={styles.heartRateContainer}>
+          {/* <View style={styles.heartRateContainer}>
             <TypographyRegular
               fontSize={fontSize.smallText}
               lineHeight={lineHeight.smallText}
@@ -77,16 +86,11 @@ export default function HomeScreen({ navigation }) {
             <TypographyGradient color={colors.blueLinear}>
               <Text style={styles.heartText}>78 BPM</Text>
             </TypographyGradient>
-          </View>
+          </View> */}
           <Margin margin={16} />
           <View style={styles.headerContainer}>
             <View style={styles.waterIntakeContainer}>
-              <TypographyRegular
-                text="Water Intake"
-                fontSize={fontSize.smallText}
-                lineHeight={lineHeight.smallText}
-                fontFamily={fontFamily.medium}
-              />
+              <WaterInTake />
             </View>
             <View>
               <View style={styles.squareContainer}>

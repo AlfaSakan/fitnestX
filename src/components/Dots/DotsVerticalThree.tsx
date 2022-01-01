@@ -3,12 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '../../assets/colors';
 import { responsiveWidth } from '../../utils/responsiveDimension';
 
-export type DotVerticalThreeType = {
+interface DotVerticalThreeType {
   marginRight?: number;
   marginBottom?: number;
   color?: string;
   backgroundColor?: string;
-};
+}
 
 const DotVerticalThree: React.FC<DotVerticalThreeType> = ({
   marginRight,

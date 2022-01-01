@@ -17,7 +17,7 @@ export default function NotificationScreen({ navigation }: NotificationNavigatio
   return (
     <View style={styles.container}>
       <HeaderTitleBack onPressBack={() => navigation.goBack()} />
-      <View>
+      <View style={{ paddingHorizontal: responsiveWidth(30) }}>
         <Margin margin={30} />
         <NotificationCard
           colorImage={colors.blue}
@@ -62,6 +62,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     paddingTop: responsiveHeight(40),
-    paddingHorizontal: responsiveWidth(30),
   },
 });

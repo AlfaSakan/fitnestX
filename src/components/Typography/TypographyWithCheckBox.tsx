@@ -7,7 +7,7 @@ import { responsiveWidth } from '../../utils/responsiveDimension';
 
 const { width } = Dimensions.get('window');
 
-export type TypographyWithCheckBoxType = {
+interface TypographyWithCheckBoxType {
   onValueChange(value: boolean): void;
   toggleValue: boolean;
   propFontSize?: number;
@@ -16,7 +16,7 @@ export type TypographyWithCheckBoxType = {
   color?: string;
   style?: {};
   text?: string;
-};
+}
 
 const TypographyWithCheckBox: React.FC<TypographyWithCheckBoxType> = React.memo(
   function TypographyWithCheckBox({

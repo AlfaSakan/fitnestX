@@ -2,9 +2,9 @@ import React from 'react';
 import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
 import { colors } from '../../assets/colors';
 
-export type ButtonSquareType = {
+interface ButtonSquareType {
   image: ImageSourcePropType;
-};
+}
 
 const ButtonSquare: React.FC<ButtonSquareType> = ({ image }) => {
   return (

@@ -7,12 +7,12 @@ import DotComponent from '../Dots/DotComponent';
 import TypographyRegular from '../Typography/TypographyRegular';
 import ArrowLeft2Icon from '../../assets/Images/svg/ArrowLeft2Icon';
 
-type HeaderTitleBackType = {
+interface HeaderTitleBackType {
   onPressBack?(): void;
   onPressRight?(): void;
   title?: string;
   imageLeft?: ReactElement<any, any>;
-};
+}
 
 const HeaderTitleBack: React.FC<HeaderTitleBackType> = ({
   onPressBack,

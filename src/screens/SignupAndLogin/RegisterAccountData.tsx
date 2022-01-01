@@ -19,7 +19,6 @@ import SwapIcon from '../../assets/Images/svg/SwapIcon';
 import TwoUserIcon from '../../assets/Images/svg/TwoUserIcon';
 import WeightScale1Icon from '../../assets/Images/svg/WeightScale1Icon';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLarge from '../../components/Button/ButtonLarge';
 import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
 import Margin from '../../components/Margin';
 import TextInputDropdown from '../../components/TextInputCustom/TextInputDropdown';
@@ -27,6 +26,17 @@ import TextInputWithUnit from '../../components/TextInputCustom/TextInputWithUni
 import TypographyRegular from '../../components/Typography/TypographyRegular';
 import { SignupAndLoginStackType } from '../../types/navigation';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {
+  setDateOfBirth,
+  setGender,
+  setHeight,
+  setWeight,
+} from '../../features/user/userInformation';
+import { genderType } from '../../types/gender';
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -36,12 +46,18 @@ type RegisterAccountNavigationType = NativeStackScreenProps<
 >;
 
 export default function RegisterAccountData({ navigation }: RegisterAccountNavigationType) {
-  const [gender, setGender] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [inputWeight, setInputWeight] = useState('');
-  const [inputHeight, setInputHeight] = useState('');
+  // const [gender, setGender] = useState('');
+  // const [dateOfBirth, setDateOfBirth] = useState('');
+  // const [inputWeight, setInputWeight] = useState('');
+  // const [inputHeight, setInputHeight] = useState('');
   const [isDropdownGender, setIsDropdownGender] = useState(false);
   const [isValid, setIsValid] = useState(false);
+  const [openCalendar, setOpenCalendar] = useState(false);
+  const [date, setDate] = useState(new Date());
+
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state);
+  const { gender, height, weight, dateOfBirth } = user;
 
   const createOneButtonAlert = () =>
     Alert.alert('Please insert data incorrect way', '', [
@@ -56,37 +72,41 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
     setIsDropdownGender(!isDropdownGender);
   };
 
-  const chooseGender = (sex: string) => {
-    setGender(sex);
+  const chooseGender = (sex: genderType) => {
+    dispatch(setGender(sex));
     setIsDropdownGender(false);
   };
 
   const navigateNextScreen = () => {
-    // if (!isValid) {
-    //   createOneButtonAlert();
-    //   return;
-    // }
-    navigation.navigate('WelcomingScreen');
-    console.log('Kesini dong');
+    if (!isValid) {
+      createOneButtonAlert();
+      return;
+    }
+    navigation.navigate('ChooseYourGoals');
   };
 
   const handleHeight = (value: string) => {
-    setInputHeight(value);
+    // setInputHeight(value);
+    if (isNaN(Number(value))) {
+      return;
+    }
+    dispatch(setHeight(Number(value)));
   };
 
   const handleWeight = (value: string) => {
-    setInputWeight(value);
+    // setInputWeight(value);
+    if (isNaN(Number(value))) {
+      return;
+    }
+    dispatch(setWeight(Number(value)));
   };
 
   useEffect(() => {
-    if (gender === '' || dateOfBirth === '' || inputWeight === '' || inputHeight === '') {
+    setIsValid(true);
+    if (dateOfBirth === '' || weight === 0 || height === 0) {
       setIsValid(false);
-    } else if (inputHeight || inputWeight) {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
     }
-  }, [gender, dateOfBirth, inputHeight, inputWeight]);
+  }, [gender, dateOfBirth, height, weight]);
 
   return (
     <View style={styles.container}>
@@ -116,14 +136,16 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
             onPress={handleDropdownGender}
           />
           <TextInputDropdown
-            value={dateOfBirth}
+            // value={dateOfBirth}
+            value={moment(date).format('DD MMMM YYYY')}
+            // value={date.toString()}
             image={<CalendarIcon />}
             placeholder="Date of Birth"
-            onPress={() => {}}
+            onPress={() => setOpenCalendar(true)}
           />
           <TextInputWithUnit
             placeholder="Your Weight"
-            value={inputWeight}
+            value={weight === 0 ? '' : weight.toString()}
             image={<WeightScale1Icon />}
             unit="KG"
             onChangeText={handleWeight}
@@ -131,7 +153,7 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
           />
           <TextInputWithUnit
             placeholder="Your Height"
-            value={inputHeight}
+            value={height === 0 ? '' : height.toString()}
             onChangeText={handleHeight}
             image={<SwapIcon />}
             unit="CM"
@@ -147,6 +169,24 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
           <Margin margin={40} />
         </View>
       </ScrollView>
+      <DatePicker
+        modal
+        mode="date"
+        open={openCalendar}
+        date={date}
+        onConfirm={(date) => {
+          setOpenCalendar(false);
+          setDate(date);
+          dispatch(setDateOfBirth(moment(date).format('DD MMMM YYYY')));
+        }}
+        onCancel={() => {
+          setOpenCalendar(false);
+        }}
+        // onDateChange={(newValue) => {
+        //   setDate(newValue);
+        //   dispatch(setDateOfBirth(moment(newValue).format('DD MMMM YYYY')));
+        // }}
+      />
       <Modal
         visible={isDropdownGender}
         transparent={true}
@@ -162,14 +202,14 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
                 lineHeight={lineHeight.largeText}
               />
               <Margin margin={30} />
-              <TouchableOpacity style={styles.chooseGender} onPress={() => chooseGender('Male')}>
+              <TouchableOpacity style={styles.chooseGender} onPress={() => chooseGender('male')}>
                 <TypographyRegular
                   text="Male"
                   fontSize={fontSize.largeText}
                   lineHeight={lineHeight.largeText}
                 />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.chooseGender} onPress={() => chooseGender('Female')}>
+              <TouchableOpacity style={styles.chooseGender} onPress={() => chooseGender('female')}>
                 <TypographyRegular
                   text="Female"
                   fontSize={fontSize.largeText}

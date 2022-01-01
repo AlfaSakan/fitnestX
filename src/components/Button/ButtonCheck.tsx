@@ -4,9 +4,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-type ButtonCheckType = {
+interface ButtonCheckType {
   onPress?(): void;
-  position?: "absolute" | "relative" | undefined;
+  position?: 'absolute' | 'relative' | undefined;
   bottom?: number | undefined;
   right?: number | undefined;
   left?: number | undefined;
@@ -17,9 +17,9 @@ type ButtonCheckType = {
   width?: number;
   height?: number;
   borderRadius?: number;
-  image?: ReactElement<any, any>;
+  image?: React.ReactNode;
   paddingVertical?: number;
-};
+}
 
 const ButtonCheck: React.FC<ButtonCheckType> = ({
   onPress,

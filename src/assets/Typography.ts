@@ -15,6 +15,7 @@ export const fontSize = {
   mediumText: 14,
   smallText: 12,
   caption: 10,
+  belowCaption: 8,
 };
 
 export const lineHeight = {
@@ -27,4 +28,5 @@ export const lineHeight = {
   mediumText: 14 * 1.5,
   smallText: 12 * 1.5,
   caption: 10 * 1.5,
+  belowCaption: 8 * 1.5,
 };

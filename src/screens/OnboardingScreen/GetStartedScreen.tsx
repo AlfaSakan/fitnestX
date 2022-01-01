@@ -11,14 +11,20 @@ import TypographyRegular from '../../components/Typography/TypographyRegular';
 import { OnboardingStackType } from '../../types/navigation';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { amountAdded, incremented } from '../../features/counter/counterSlice';
+
 type GetStartedNavigationType = NativeStackScreenProps<OnboardingStackType, 'GetStarted'>;
 
 export default function GetStartedScreen({ navigation }: GetStartedNavigationType) {
   const [colorTransition, setColorTransition] = useState();
-
+  const { value, value2 } = useAppSelector((state) => state.counter);
+  const dispatch = useAppDispatch();
 
   const navigateNextScreen = () => {
     navigation.navigate('Onboarding1');
+    // dispatch(incremented());
+    // dispatch(amountAdded(3));
   };
 
   return (
@@ -38,7 +44,8 @@ export default function GetStartedScreen({ navigation }: GetStartedNavigationTyp
             lineHeight={lineHeight.h1}
           />
           <TypographyRegular
-            text="X"
+            // text="X"
+            text={`X`}
             color={colors.white}
             fontFamily={fontFamily.bold}
             fontSize={35}

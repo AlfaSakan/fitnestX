@@ -6,11 +6,11 @@ import ShowIcon from '../../assets/Images/svg/ShowIcon';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 
-export type TextInputCustomType = {
+interface TextInputCustomType {
   placeholder: string;
   value: string;
   onChangeText(value: string): void;
-  image?: ReactElement<any, any>;
+  image?: React.ReactNode;
   backgroundColor?: string;
   isPassword?: boolean;
   isHide?: boolean;
@@ -20,7 +20,8 @@ export type TextInputCustomType = {
   propfontFamily?: string;
   propfontSize?: number;
   proplineHeight?: number;
-};
+  isValid?: boolean;
+}
 
 const TextInputCustom: React.FC<TextInputCustomType> = ({
   placeholder,
@@ -36,9 +37,15 @@ const TextInputCustom: React.FC<TextInputCustomType> = ({
   proplineHeight = lineHeight.smallText,
   onPressEye,
   keyboardType,
+  isValid = true,
 }) => {
   return (
-    <View style={[styles.container, { backgroundColor }]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor, borderColor: colors.danger, borderWidth: isValid ? 0 : 1 },
+      ]}
+    >
       {image}
       <TextInput
         style={[

@@ -5,10 +5,10 @@ import { colors } from '../../assets/colors';
 import ArrowRight2Icon from '../../assets/Images/svg/ArrowRight2Icon';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 
-export type ButtonCircleType = {
+interface ButtonCircleType {
   onPress(): void;
   color?: string[];
-};
+}
 
 const ButtonCircle: React.FC<ButtonCircleType> = ({ onPress, color = colors.blueLinear }) => {
   return (

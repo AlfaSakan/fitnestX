@@ -10,10 +10,10 @@ import TypographyRegular from '../Typography/TypographyRegular';
 
 const { width } = Dimensions.get('screen');
 
-export type CardProgramType = {
+interface CardProgramType {
   item: programsType;
   index: number;
-};
+}
 
 const CardProgram: React.FC<CardProgramType> = ({ item, index }) => {
   return (

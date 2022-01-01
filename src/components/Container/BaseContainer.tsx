@@ -3,10 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '../../assets/colors';
 import { responsiveHeight } from '../../utils/responsiveDimension';
 
-type BaseContainerType = {
+interface BaseContainerType {
   children: React.ReactNode;
   backgroundColor?: string;
-};
+}
 
 const BaseContainer: React.FC<BaseContainerType> = ({
   children,

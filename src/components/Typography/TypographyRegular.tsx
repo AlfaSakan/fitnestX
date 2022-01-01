@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { colors } from '../../assets/colors';
 
-type TypographyRegularType = {
+interface TypographyRegularType {
   text?: string;
   fontFamily?: string;
   fontSize?: number;
@@ -12,7 +12,7 @@ type TypographyRegularType = {
   textDecorationLine?: 'none' | 'underline' | 'line-through' | 'underline line-through' | undefined;
   marginLeft?: number | string;
   marginRight?: number | string;
-};
+}
 
 const TypographyRegular: React.FC<TypographyRegularType> = ({
   text = 'isi text',

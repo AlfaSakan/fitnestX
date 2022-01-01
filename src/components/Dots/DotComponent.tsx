@@ -2,11 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { colors } from '../../assets/colors';
 
-type DotComponentType = {
+interface DotComponentType {
   marginRight?: number;
   marginBottom?: number;
   color?: string;
-};
+}
 
 const DotComponent: React.FC<DotComponentType> = ({
   marginRight,

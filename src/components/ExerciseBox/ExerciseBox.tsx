@@ -1,6 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Image } from 'react-native-svg';
+import { Dimensions, StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import { colors } from '../../assets/colors';
 import { ArrowRightCircleIcon } from '../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
@@ -10,11 +9,11 @@ import FlexRowContainer from '../Container/FlexRowContainer';
 import Margin from '../Margin';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-export type ExerciseBoxType = {
+interface ExerciseBoxType {
   item: workoutType;
-  onPress(): void;
+  onPress: () => void;
   index: number;
-};
+}
 
 const { width } = Dimensions.get('screen');
 

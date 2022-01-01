@@ -6,7 +6,7 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 import ButtonCheck from '../Button/ButtonCheck';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-export type ProfilePictureType = {
+interface ProfilePictureType {
   image: ImageSourcePropType;
   text: string;
   description: string;
@@ -18,7 +18,7 @@ export type ProfilePictureType = {
   borderRadius?: number;
   textButton: string;
   buttonColor?: (string | number)[];
-};
+}
 
 const ProfilePicture: React.FC<ProfilePictureType> = ({
   image,

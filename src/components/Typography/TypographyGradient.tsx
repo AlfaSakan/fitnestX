@@ -4,10 +4,10 @@ import { StyleProp, Text, TextStyle } from 'react-native';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 
-type TypographyGradientType = {
+interface TypographyGradientType {
   color: string[];
-  style: StyleProp<TextStyle>;
-};
+  style?: StyleProp<TextStyle>;
+}
 
 const TypographyGradient: React.FC<TypographyGradientType> = (props) => {
   return (

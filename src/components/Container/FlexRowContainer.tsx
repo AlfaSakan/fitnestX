@@ -2,11 +2,11 @@ import React, { ReactChild, ReactElement } from 'react';
 import { FlexAlignType, StyleSheet, View } from 'react-native';
 import { colors } from '../../assets/colors';
 
-export type FlexRowContainerType = {
+interface FlexRowContainerType {
   children?: React.ReactNode;
   backgroundColor?: string;
   alignItems?: FlexAlignType;
-};
+}
 
 const FlexRowContainer: React.FC<FlexRowContainerType> = ({
   children,

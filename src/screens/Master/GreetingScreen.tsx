@@ -16,11 +16,13 @@ export type GreetingScreenType = {
   buttonText?: string;
   onPressFooter?(): void;
   description2?: string;
+  name?: string;
 };
 
 const GreetingScreen: React.FC<GreetingScreenType> = ({
   image = images.coupleImage,
-  title = 'Welcome, Stefani',
+  title = 'Welcome,',
+  name = 'Steffani',
   description = "You are all set now, let's reach your goals together with us",
   buttonText = 'Go To Home',
   onPressFooter = () => {},
@@ -32,7 +34,7 @@ const GreetingScreen: React.FC<GreetingScreenType> = ({
       <Margin margin={44} />
       <View style={styles.descBox}>
         <TypographyRegular
-          text={title}
+          text={`${title} ${name}`}
           fontFamily={fontFamily.bold}
           textAlign="center"
           fontSize={fontSize.h4}

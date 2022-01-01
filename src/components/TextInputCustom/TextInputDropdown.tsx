@@ -6,14 +6,14 @@ import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-export type TextInputDropdownType = {
+interface TextInputDropdownType {
   value: string;
-  image: ReactElement<any, any>;
+  image: React.ReactNode;
   backgroundColor?: string;
   onPress(): void;
   isDropdown?: boolean;
   placeholder: string;
-};
+}
 
 const TextInputDropdown: React.FC<TextInputDropdownType> = ({
   value,

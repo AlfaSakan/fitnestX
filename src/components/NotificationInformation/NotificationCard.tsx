@@ -6,7 +6,7 @@ import { responsiveWidth } from '../../utils/responsiveDimension';
 import DotVerticalThree from '../Dots/DotsVerticalThree';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-type NotificationCardType = {
+interface NotificationCardType {
   image: ImageSourcePropType;
   text: string;
   description?: string;
@@ -16,7 +16,7 @@ type NotificationCardType = {
   backgroundColor?: string;
   padding?: number;
   borderRadius?: number;
-};
+}
 
 const NotificationCard: React.FC<NotificationCardType> = ({
   image,

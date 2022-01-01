@@ -7,7 +7,7 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 import TypographyGradient from '../Typography/TypographyGradient';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-export type ButtonLargeGradientType = {
+interface ButtonLargeGradientType {
   color?: string;
   text: string;
   position?: 'absolute' | 'relative';
@@ -17,7 +17,7 @@ export type ButtonLargeGradientType = {
   bottom?: string | number;
   onPress(): void;
   buttonColor: (string | number)[];
-};
+}
 
 const ButtonLargeGradient: React.FC<ButtonLargeGradientType> = ({
   color,

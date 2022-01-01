@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors } from '../../assets/colors';
 
-type ContentContainerType = {
+interface ContentContainerType {
   children: React.ReactNode;
   backgroundColor?: string;
   padding?: number;
-};
+}
 
 const ContentContainer: React.FC<ContentContainerType> = ({
   children,

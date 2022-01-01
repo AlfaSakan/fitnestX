@@ -1,17 +1,14 @@
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import LockIcon from '../../assets/Images/svg/LockIcon';
 import MessageIcon from '../../assets/Images/svg/MessageIcon';
 import ProfileIcon from '../../assets/Images/svg/ProfileIcon';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLarge from '../../components/Button/ButtonLarge';
 import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
 import ButtonSquare from '../../components/Button/ButtonSquare';
-import LineSeparator from '../../components/LineSeparator';
 import LineSeparatorWithText from '../../components/LineSeparatorWithText';
 import Margin from '../../components/Margin';
 import TextInputCustom from '../../components/TextInputCustom/TextInputCustom';
@@ -19,28 +16,71 @@ import TypographyGradient from '../../components/Typography/TypographyGradient';
 import TypographyRegular from '../../components/Typography/TypographyRegular';
 import TypographyWithCheckBox from '../../components/Typography/TypographyWithCheckBox';
 import { SignupAndLoginStackType } from '../../types/navigation';
+import { regexValidateEmail, regexValidatePassword } from '../../utils/RegularExpression';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { setFirstName, setLastName, setEmail } from '../../features/user/userInformation';
 
 type SignupNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'SignupScreen'>;
 
 export default function SignupScreen({ navigation }: SignupNavigationType) {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  // const [firstNameState, setFirstNameState] = useState('');
+  // const [lastNameState, setLastNameState] = useState('');
+  const [emailState, setEmailState] = useState('');
   const [password, setPassword] = useState('');
   const [isCheck, setIsCheck] = useState(false);
   const [isHidePassword, setIsHidePassword] = useState(true);
+  const [isNotEmpty, setIsNotEmpty] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+
+  const { user } = useAppSelector((state) => state);
+  const { firstName, lastName, email } = user;
+  const dispatch = useAppDispatch();
+
+  const createOneButtonAlert = () =>
+    Alert.alert('Please insert data in correct way', '', [
+      {
+        text: 'Continue',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ]);
+
+  const EmailAlert = () =>
+    Alert.alert('Please insert email correctly', '', [
+      {
+        text: 'Continue',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ]);
+
+  const passwordAlert = () =>
+    Alert.alert(
+      'password must have 6 to 16 characters, \nat least one number, \none special character',
+      '',
+      [
+        {
+          text: 'Continue',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ]
+    );
 
   const handleFirstName = (value: string) => {
-    setFirstName(value);
+    dispatch(setFirstName(value));
   };
 
   const handleLastName = (value: string) => {
-    setLastName(value);
+    dispatch(setLastName(value));
   };
 
   const handleEmail = (value: string) => {
-    setEmail(value);
+    // dispatch(setEmail(value));
+    setEmailState(value);
   };
 
   const handlePassword = (value: string) => {
@@ -56,12 +96,42 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
   };
 
   const navigateNextScreen = () => {
+    if (!regexValidateEmail.test(emailState)) {
+      setIsEmailValid(false);
+      EmailAlert();
+      return;
+    }
+    if (!regexValidatePassword.test(password)) {
+      setIsPasswordValid(false);
+      passwordAlert();
+      return;
+    }
+    if (!isNotEmpty) {
+      createOneButtonAlert();
+      return;
+    }
+    dispatch(setEmail(emailState.toString()));
     navigation.navigate('RegisterAccountData');
   };
 
   const navigateToLogin = () => {
     navigation.navigate('LoginScreen');
   };
+
+  useEffect(() => {
+    setIsNotEmpty(false);
+    if (firstName !== '' && lastName !== '' && emailState !== '' && password !== '' && isCheck) {
+      setIsNotEmpty(true);
+    }
+  }, [firstName, lastName, emailState, password, isCheck]);
+
+  useEffect(() => {
+    setIsPasswordValid(true);
+  }, [password]);
+
+  useEffect(() => {
+    setIsEmailValid(true);
+  }, [emailState]);
 
   return (
     <View style={styles.container}>
@@ -94,8 +164,9 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
         <TextInputCustom
           image={<MessageIcon />}
           placeholder="Email"
-          value={email}
+          value={emailState}
           onChangeText={handleEmail}
+          isValid={isEmailValid}
         />
         <TextInputCustom
           image={<LockIcon />}
@@ -105,6 +176,7 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
           isHide={isHidePassword}
           onChangeText={handlePassword}
           onPressEye={handleVisiblePassword}
+          isValid={isPasswordValid}
         />
         <TypographyWithCheckBox
           toggleValue={isCheck}

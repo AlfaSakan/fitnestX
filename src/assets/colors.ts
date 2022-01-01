@@ -10,7 +10,11 @@ export const colors = {
   warning: '#FFD600',
   danger: '#FF0000',
   blue: '#e8f1ff',
+  blue1: '#9dceff',
+  blue2: '#92a3fd',
   pink: '#fceaf8',
+  purple1: '#c58bf2',
+  purple2: '#eea4ce',
   blueLinear: ['#9dceff', '#92a3fd'],
   purpleLinear: ['#c58bf2', '#eea4ce'],
 };

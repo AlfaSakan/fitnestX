@@ -6,7 +6,7 @@ import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-export type ButtonSquareGradientType = {
+interface ButtonSquareGradientType {
   buttonColor?: string[];
   color?: string;
   propFontFamily?: string;
@@ -18,7 +18,7 @@ export type ButtonSquareGradientType = {
   right?: number;
   top?: number;
   left?: number;
-};
+}
 
 const ButtonSquareGradient: React.FC<ButtonSquareGradientType> = ({
   buttonColor = colors.blueLinear,

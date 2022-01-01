@@ -7,7 +7,7 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 import TypographyGradient from '../Typography/TypographyGradient';
 import TypographyRegular from '../Typography/TypographyRegular';
 
-export type ButtonRegularType = {
+interface ButtonRegularType {
   color?: string[];
   text: string;
   position?: 'absolute' | 'relative';
@@ -19,7 +19,7 @@ export type ButtonRegularType = {
   buttonColor?: string;
   width?: number;
   height?: number;
-};
+}
 
 const ButtonRegular: React.FC<ButtonRegularType> = ({
   color = colors.blueLinear,

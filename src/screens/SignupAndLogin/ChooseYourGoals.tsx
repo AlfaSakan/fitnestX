@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useRef, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Animated,
   Dimensions,
@@ -9,6 +9,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
@@ -19,6 +20,10 @@ import Margin from '../../components/Margin';
 import TypographyRegular from '../../components/Typography/TypographyRegular';
 import { SignupAndLoginStackType } from '../../types/navigation';
 import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { setGoal } from '../../features/user/userInformation';
+import FlexRowContainer from '../../components/Container/FlexRowContainer';
 
 export type programsType = {
   id: number;
@@ -59,6 +64,10 @@ type ChooseYourGoalsNavigationType = NativeStackScreenProps<
 export default function ChooseYourGoals({ navigation }: ChooseYourGoalsNavigationType) {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state);
+  const { goal } = useAppSelector((state) => state.user);
+
   const isCarousel = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -69,6 +78,7 @@ export default function ChooseYourGoals({ navigation }: ChooseYourGoalsNavigatio
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   const navigateNextScreen = (item: programsType) => {
+    dispatch(setGoal(item.title));
     navigation.navigate('WelcomingScreen');
   };
 
@@ -112,6 +122,17 @@ export default function ChooseYourGoals({ navigation }: ChooseYourGoalsNavigatio
           snapToAlignment="center"
           disableIntervalMomentum={true}
         />
+        <View style={styles.dotContainer}>
+          {programs.map((program) => {
+            const isActive = activeIndex === program.id;
+            return (
+              <View
+                key={program.id.toString()}
+                style={[styles.dot, { backgroundColor: isActive ? colors.blue1 : colors.blue }]}
+              />
+            );
+          })}
+        </View>
         <ButtonLargeGradient
           buttonColor={colors.blueLinear}
           color={colors.white}
@@ -143,5 +164,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: responsiveWidth(30),
+  },
+  dotContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginRight: 5,
   },
 });

@@ -29,15 +29,13 @@ const activities = [
 
 type ActivityTrackerNavigationType = NativeStackScreenProps<HomeStackType, 'ActivityTrackerScreen'>;
 
-export default function ActivityTrackerScreen() {
-  const { navigation } = useNavigation<ActivityTrackerNavigationType>();
-
+export default function ActivityTrackerScreen({ navigation }: ActivityTrackerNavigationType) {
   return (
     <View style={styles.container}>
       <HeaderTitleBack title="Activity Tracker" onPressBack={() => navigation.goBack()} />
       <Margin margin={30} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
+        <View style={{ paddingHorizontal: responsiveWidth(30) }}>
           <View style={styles.body1Container}>
             <View style={styles.displayFlex}>
               <TypographyRegular text="Today Target" />
@@ -171,7 +169,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white2,
     paddingTop: responsiveHeight(40),
-    paddingHorizontal: responsiveWidth(30),
   },
   displayFlex: {
     flexDirection: 'row',

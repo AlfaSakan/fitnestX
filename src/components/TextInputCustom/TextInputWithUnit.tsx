@@ -9,11 +9,11 @@ import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimensi
 import ButtonSquare from '../Button/ButtonSquare';
 import ButtonSquareGradient from '../Button/ButtonSquareGradient';
 
-export type TextInputWithUnitType = {
+interface TextInputWithUnitType {
   placeholder: string;
   value: string;
   onChangeText(value: string): void;
-  image: ReactElement<any, any>;
+  image: React.ReactNode;
   backgroundColor?: string;
   isHide?: boolean;
   color?: string;
