@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Image, Dimensions, ImageSourcePropType } from 'react-native';
 import { colors } from '../../assets/colors';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonCircle from '../../components/Button/ButtonCircle';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonCircle from '../../components/atoms/Button/ButtonCircle';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
 const { width, height } = Dimensions.get('screen');
 

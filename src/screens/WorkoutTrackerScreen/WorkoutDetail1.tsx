@@ -1,163 +1,48 @@
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  ImageSourcePropType,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { colors } from '../../assets/colors';
-import ArrowRight2Icon from '../../assets/Images/svg/ArrowRight2Icon';
-import LoveIcon from '../../assets/Images/svg/LoveIcon';
-import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import BaseContainer from '../../components/Container/BaseContainer';
-import FlexRowContainer from '../../components/Container/FlexRowContainer';
-import HeaderTitleBack from '../../components/Header/HeaderTitleBack';
-import Margin from '../../components/Margin';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
-import CalendarIcon from '../../assets/Images/svg/CalendarIcon';
-import ContentContainer from '../../components/Container/ContentContainer';
-import { ArrowRightCircleIcon, SwapIcon } from '../../assets/Images/svg';
-import { images } from '../../assets/images';
-import ButtonLarge from '../../components/Button/ButtonLarge';
-import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
-import ExerciseBox from '../../components/ExerciseBox/ExerciseBox';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { WorkoutStackType } from '../../types/navigation';
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 
-type dataType = {
-  workout: workoutType[];
-}[];
+import { colors } from '../../assets/colors';
+import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
+import { ArrowRight2Icon, CalendarIcon, LoveIcon, SwapIcon } from '../../assets/Images/svg';
 
-export type workoutType = {
-  name: string;
-  time: string;
-  repetition: string;
-  image: ImageSourcePropType;
-  difficulty: 'easy' | 'medium' | 'hard';
-  description: string;
-  calories: string;
-};
+import BaseContainer from '../../components/atoms/Container/BaseContainer';
+import FlexRowContainer from '../../components/atoms/Container/FlexRowContainer';
+import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
+import Margin from '../../components/atoms/Margin/Margin';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import ContentContainer from '../../components/atoms/Container/ContentContainer';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import ExerciseBox from '../../components/molecules/ExerciseBox/ExerciseBox';
 
-const dataExercises: dataType = [
-  {
-    workout: [
-      {
-        name: 'Warm Up',
-        time: '5 minutes',
-        repetition: '',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-      {
-        name: 'Jumping Jack',
-        time: '',
-        repetition: '12',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-      {
-        name: 'Skipping',
-        time: '',
-        repetition: '15',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-    ],
-  },
-  {
-    workout: [
-      {
-        name: 'Warm Up',
-        time: '5 minutes',
-        repetition: '',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-      {
-        name: 'Jumping Jack',
-        time: '',
-        repetition: '12',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-      {
-        name: 'Skipping',
-        time: '',
-        repetition: '15',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-    ],
-  },
-  {
-    workout: [
-      {
-        name: 'Warm Up',
-        time: '5 minutes',
-        repetition: '',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-      {
-        name: 'Jumping Jack',
-        time: '',
-        repetition: '12',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-      {
-        name: 'Skipping',
-        time: '',
-        repetition: '15',
-        image: images.vectorExercises,
-        difficulty: 'easy',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra odio eu finibus consequat. Mauris sed libero a nibh mollis sollicitudin. Phasellus at sem sed justo ultricies dignissim. Vivamus at augue ultricies quam efficitur tristique in id est. Suspendisse viverra, turpis placerat suscipit mattis, purus ex mattis metus, ut finibus arcu eros ut nunc. Suspendisse potenti.',
-        calories: '390',
-      },
-    ],
-  },
-];
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
+import { workoutType } from '../../utils/functions/datadummies';
+
+import { WorkoutStackType } from '../../utils/types/navigation';
+import { images } from '../../assets/images';
 
 type WorkoutDetail1NavigationType = NativeStackScreenProps<WorkoutStackType, 'WorkoutDetail1'>;
-type WorkoutDetail1RouteType = RouteProp<WorkoutStackType, 'WorkoutDetail1'>;
 
 const { width } = Dimensions.get('screen');
 
-export default function WorkoutDetail1() {
-  const {
-    params: { data },
-  } = useRoute<WorkoutDetail1RouteType>();
-  const { navigation } = useNavigation<WorkoutDetail1NavigationType>();
+const tools = [
+  {
+    name: 'Barbell',
+    image: images.barbelImage,
+  },
+  {
+    name: 'Skipping Rope',
+    image: images.skippingRopeImage,
+  },
+  {
+    name: 'Bottle 1 Liter',
+    image: images.waterBottleImage,
+  },
+];
+
+export default function WorkoutDetail1({ route, navigation }: WorkoutDetail1NavigationType) {
+  const { data } = route.params;
+  const { listExercise } = data;
 
   const navigateToDetailWorkout = (value: workoutType) => {
     navigation.navigate('WorkoutDetail2', { data: value });
@@ -247,7 +132,7 @@ export default function WorkoutDetail1() {
                 lineHeight={lineHeight.largeText}
               />
               <TypographyRegular
-                text="5 Items"
+                text={`${tools.length} Items`}
                 fontFamily={fontFamily.medium}
                 fontSize={fontSize.smallText}
                 lineHeight={lineHeight.smallText}
@@ -256,6 +141,24 @@ export default function WorkoutDetail1() {
             </FlexRowContainer>
             <Margin margin={15} />
           </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {tools.map((tool, index) => {
+              return (
+                <View key={index.toString()}>
+                  <View style={styles.wrapImageTools}>
+                    <Image style={{ transform: [{ scale: 0.5 }] }} source={tool.image} />
+                  </View>
+                  <TypographyRegular
+                    fontSize={fontSize.smallText}
+                    lineHeight={lineHeight.smallText}
+                    text={tool.name}
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
+
           <Margin margin={30} />
           <View>
             <FlexRowContainer>
@@ -274,7 +177,7 @@ export default function WorkoutDetail1() {
               />
             </FlexRowContainer>
             <Margin margin={20} />
-            {dataExercises.map((exercise, index) => {
+            {listExercise.map((exercise, index) => {
               if (!exercise?.workout) return;
               if (exercise.workout.length === 0) return;
 
@@ -345,5 +248,14 @@ const styles = StyleSheet.create({
     width,
     bottom: responsiveHeight(40),
     alignItems: 'center',
+  },
+  wrapImageTools: {
+    width: responsiveWidth(130),
+    height: responsiveWidth(130),
+    borderRadius: responsiveWidth(12),
+    marginRight: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.gray4,
   },
 });

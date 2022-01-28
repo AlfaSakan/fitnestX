@@ -1,18 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { colors } from '../../assets/colors';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLarge from '../../components/Button/ButtonLarge';
-import TypographyGradient from '../../components/Typography/TypographyGradient';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { OnboardingStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { amountAdded, incremented } from '../../features/counter/counterSlice';
+import { OnboardingStackType } from '../../utils/types/navigation';
+
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
+
+import { useAppDispatch, useAppSelector } from '../../config/redux/app/hooks';
+
+import ButtonLarge from '../../components/atoms/Button/ButtonLarge';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
 
 type GetStartedNavigationType = NativeStackScreenProps<OnboardingStackType, 'GetStarted'>;
 
@@ -44,7 +45,6 @@ export default function GetStartedScreen({ navigation }: GetStartedNavigationTyp
             lineHeight={lineHeight.h1}
           />
           <TypographyRegular
-            // text="X"
             text={`X`}
             color={colors.white}
             fontFamily={fontFamily.bold}

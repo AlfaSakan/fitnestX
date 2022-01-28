@@ -7,20 +7,20 @@ import LockIcon from '../../assets/Images/svg/LockIcon';
 import MessageIcon from '../../assets/Images/svg/MessageIcon';
 import ProfileIcon from '../../assets/Images/svg/ProfileIcon';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
-import ButtonSquare from '../../components/Button/ButtonSquare';
-import LineSeparatorWithText from '../../components/LineSeparatorWithText';
-import Margin from '../../components/Margin';
-import TextInputCustom from '../../components/TextInputCustom/TextInputCustom';
-import TypographyGradient from '../../components/Typography/TypographyGradient';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import TypographyWithCheckBox from '../../components/Typography/TypographyWithCheckBox';
-import { SignupAndLoginStackType } from '../../types/navigation';
-import { regexValidateEmail, regexValidatePassword } from '../../utils/RegularExpression';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import ButtonSquare from '../../components/atoms/Button/ButtonSquare';
+import LineSeparatorWithText from '../../components/atoms/LineSeparator/LineSeparatorWithText';
+import Margin from '../../components/atoms/Margin/Margin';
+import TextInputCustom from '../../components/atoms/TextInputCustom/TextInputCustom';
+import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import TypographyWithCheckBox from '../../components/atoms/Typography/TypographyWithCheckBox';
+import { SignupAndLoginStackType } from '../../utils/types/navigation';
+import { regexValidateEmail, regexValidatePassword } from '../../utils/functions/RegularExpression';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setFirstName, setLastName, setEmail } from '../../features/user/userInformation';
+import { useAppDispatch, useAppSelector } from '../../config/redux/app/hooks';
+import { setFirstName, setLastName, setEmail } from '../../config/redux/features/user/userInformation';
 
 type SignupNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'SignupScreen'>;
 
@@ -96,21 +96,21 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
   };
 
   const navigateNextScreen = () => {
-    if (!regexValidateEmail.test(emailState)) {
-      setIsEmailValid(false);
-      EmailAlert();
-      return;
-    }
-    if (!regexValidatePassword.test(password)) {
-      setIsPasswordValid(false);
-      passwordAlert();
-      return;
-    }
-    if (!isNotEmpty) {
-      createOneButtonAlert();
-      return;
-    }
-    dispatch(setEmail(emailState.toString()));
+    // if (!regexValidateEmail.test(emailState)) {
+    //   setIsEmailValid(false);
+    //   EmailAlert();
+    //   return;
+    // }
+    // if (!regexValidatePassword.test(password)) {
+    //   setIsPasswordValid(false);
+    //   passwordAlert();
+    //   return;
+    // }
+    // if (!isNotEmpty) {
+    //   createOneButtonAlert();
+    //   return;
+    // }
+    // dispatch(setEmail(emailState.toString()));
     navigation.navigate('RegisterAccountData');
   };
 

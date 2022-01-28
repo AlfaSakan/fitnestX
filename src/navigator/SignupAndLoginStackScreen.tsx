@@ -7,7 +7,7 @@ import {
   SignupScreen,
   WelcomingScreen,
 } from '../screens/SignupAndLogin';
-import { SignupAndLoginStackType } from '../types/navigation';
+import { SignupAndLoginStackType } from '../utils/types/navigation';
 
 const SignupAndLoginStack = createNativeStackNavigator<SignupAndLoginStackType>();
 

@@ -6,16 +6,16 @@ import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import { LockIcon, MessageIcon } from '../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLarge from '../../components/Button/ButtonLarge';
-import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
-import ButtonSquare from '../../components/Button/ButtonSquare';
-import LineSeparatorWithText from '../../components/LineSeparatorWithText';
-import Margin from '../../components/Margin';
-import TextInputCustom from '../../components/TextInputCustom/TextInputCustom';
-import TypographyGradient from '../../components/Typography/TypographyGradient';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { SignupAndLoginStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonLarge from '../../components/atoms/Button/ButtonLarge';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import ButtonSquare from '../../components/atoms/Button/ButtonSquare';
+import LineSeparatorWithText from '../../components/atoms/LineSeparator/LineSeparatorWithText';
+import Margin from '../../components/atoms/Margin/Margin';
+import TextInputCustom from '../../components/atoms/TextInputCustom/TextInputCustom';
+import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { SignupAndLoginStackType } from '../../utils/types/navigation';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
 type LoginNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'LoginScreen'>;
 

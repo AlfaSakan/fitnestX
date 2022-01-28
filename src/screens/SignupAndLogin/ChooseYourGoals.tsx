@@ -13,17 +13,17 @@ import {
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLarge from '../../components/Button/ButtonLarge';
-import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
-import CardProgram from '../../components/CardProgram/CardProgram';
-import Margin from '../../components/Margin';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { SignupAndLoginStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonLarge from '../../components/atoms/Button/ButtonLarge';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import CardProgram from '../../components/molecules/CardProgram/CardProgram';
+import Margin from '../../components/atoms/Margin/Margin';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { SignupAndLoginStackType } from '../../utils/types/navigation';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setGoal } from '../../features/user/userInformation';
-import FlexRowContainer from '../../components/Container/FlexRowContainer';
+import { useAppDispatch, useAppSelector } from '../../config/redux/app/hooks';
+import { setGoal } from '../../config/redux/features/user/userInformation';
+import FlexRowContainer from '../../components/atoms/Container/FlexRowContainer';
 
 export type programsType = {
   id: number;

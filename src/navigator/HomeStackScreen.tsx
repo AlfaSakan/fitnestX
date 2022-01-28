@@ -5,13 +5,14 @@ import {
   CongratulationScreen,
   HomeScreen,
 } from '../screens/DashboardScreen';
-import { HomeStackType } from '../types/navigation';
+import { HomeStackType } from '../utils/types/navigation';
+import { NotificationScreen } from '../screens/NotificationScreen';
 
 const HomeStack = createNativeStackNavigator<HomeStackType>();
 
 export default function HomeStackScreen({}) {
   return (
-    <HomeStack.Navigator initialRouteName="HomeScreen">
+    <HomeStack.Navigator>
       <HomeStack.Screen
         name="ActivityTrackerScreen"
         component={ActivityTrackerScreen}
@@ -22,7 +23,11 @@ export default function HomeStackScreen({}) {
         component={CongratulationScreen}
         options={{ headerShown: false }}
       />
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+      <HomeStack.Screen
+        name="NotificationScreen"
+        component={NotificationScreen}
+        options={{ headerShown: false }}
+      />
     </HomeStack.Navigator>
   );
 }

@@ -7,7 +7,7 @@ import {
   OnboardingScreen3,
   OnboardingScreen4,
 } from '../screens/OnboardingScreen';
-import { OnboardingStackType } from '../types/navigation';
+import { OnboardingStackType } from '../utils/types/navigation';
 
 const OnboardingStack = createNativeStackNavigator<OnboardingStackType>();
 

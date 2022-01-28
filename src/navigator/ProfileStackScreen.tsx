@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ProfileScreen } from '../screens/DashboardScreen';
-import { ProfileStackType } from '../types/navigation';
+import { ProfileStackType } from '../utils/types/navigation';
 
 const ProfileStack = createNativeStackNavigator<ProfileStackType>();
 

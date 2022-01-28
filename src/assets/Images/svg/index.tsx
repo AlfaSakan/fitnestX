@@ -33,6 +33,9 @@ import ThreeUserIcon from './ThreeUserIcon';
 import TwoUserIcon from './TwoUserIcon';
 import UpperbodyWorkoutImage from './UpperbodyWorkoutImage';
 import WeightScale1Icon from './WeightScale1Icon';
+import CircularProgress from './CircularProgress';
+import ArrowRight2GradientIcon from './ArrowRight2GradientIcon';
+import BannerPie from './BannerPie';
 
 export {
   AddUserIcon,
@@ -70,4 +73,7 @@ export {
   TwoUserIcon,
   UpperbodyWorkoutImage,
   WeightScale1Icon,
+  ArrowRight2GradientIcon,
+  CircularProgress,
+  BannerPie,
 };

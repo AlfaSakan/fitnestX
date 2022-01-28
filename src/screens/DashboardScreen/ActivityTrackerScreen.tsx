@@ -8,14 +8,14 @@ import { images } from '../../assets/images';
 import ArrowDown2Icon from '../../assets/Images/svg/ArrowDown2Icon';
 import PlusIcon from '../../assets/Images/svg/PlusIcon';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonCheck from '../../components/Button/ButtonCheck';
-import HeaderTitleBack from '../../components/Header/HeaderTitleBack';
-import Margin from '../../components/Margin';
-import NotificationCard from '../../components/NotificationInformation/NotificationCard';
-import TypographyGradient from '../../components/Typography/TypographyGradient';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { HomeStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonCheck from '../../components/atoms/Button/ButtonCheck';
+import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
+import Margin from '../../components/atoms/Margin/Margin';
+import NotificationCard from '../../components/molecules/NotificationInformation/NotificationCard';
+import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { HomeStackType } from '../../utils/types/navigation';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
 const activities = [
   { day: 'Sun', progress: 0.2 },

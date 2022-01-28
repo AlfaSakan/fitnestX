@@ -19,22 +19,22 @@ import SwapIcon from '../../assets/Images/svg/SwapIcon';
 import TwoUserIcon from '../../assets/Images/svg/TwoUserIcon';
 import WeightScale1Icon from '../../assets/Images/svg/WeightScale1Icon';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
-import Margin from '../../components/Margin';
-import TextInputDropdown from '../../components/TextInputCustom/TextInputDropdown';
-import TextInputWithUnit from '../../components/TextInputCustom/TextInputWithUnit';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { SignupAndLoginStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import Margin from '../../components/atoms/Margin/Margin';
+import TextInputDropdown from '../../components/atoms/TextInputCustom/TextInputDropdown';
+import TextInputWithUnit from '../../components/atoms/TextInputCustom/TextInputWithUnit';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { SignupAndLoginStackType } from '../../utils/types/navigation';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../config/redux/app/hooks';
 import {
   setDateOfBirth,
   setGender,
   setHeight,
   setWeight,
-} from '../../features/user/userInformation';
-import { genderType } from '../../types/gender';
+} from '../../config/redux/features/user/userInformation';
+import { genderType } from '../../utils/types/gender';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 

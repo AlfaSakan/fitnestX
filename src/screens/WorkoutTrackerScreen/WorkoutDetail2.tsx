@@ -1,4 +1,3 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -6,16 +5,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../assets/colors';
 import { CircleGradientIcon, CloseIcon } from '../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLarge from '../../components/Button/ButtonLarge';
-import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
-import BaseContainer from '../../components/Container/BaseContainer';
-import FlexRowContainer from '../../components/Container/FlexRowContainer';
-import HeaderTitleBack from '../../components/Header/HeaderTitleBack';
-import Margin from '../../components/Margin';
-import TypographyGradient from '../../components/Typography/TypographyGradient';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { WorkoutStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import BaseContainer from '../../components/atoms/Container/BaseContainer';
+import FlexRowContainer from '../../components/atoms/Container/FlexRowContainer';
+import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
+import Margin from '../../components/atoms/Margin/Margin';
+import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { WorkoutStackType } from '../../utils/types/navigation';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
 const exerciseSteps = [
   {
@@ -41,13 +39,9 @@ const exerciseSteps = [
 ];
 
 type WorkoutDetail2NavigationType = NativeStackScreenProps<WorkoutStackType, 'WorkoutDetail2'>;
-type WorkoutDetail2RouteType = RouteProp<WorkoutStackType, 'WorkoutDetail2'>;
 
-export default function WorkoutDetail2() {
-  const {
-    params: { data },
-  } = useRoute<WorkoutDetail2RouteType>();
-  const { navigation } = useNavigation<WorkoutDetail2NavigationType>();
+export default function WorkoutDetail2({ navigation, route }: WorkoutDetail2NavigationType) {
+  const { data } = route.params;
 
   return (
     <BaseContainer>

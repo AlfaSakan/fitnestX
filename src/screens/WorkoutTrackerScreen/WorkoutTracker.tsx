@@ -8,37 +8,40 @@ import AbWorkoutImage from '../../assets/Images/svg/AbWorkoutImage';
 import FullbodyWorkoutImage from '../../assets/Images/svg/FullbodyWorkoutImage';
 import UpperbodyWorkoutImage from '../../assets/Images/svg/UpperbodyWorkoutImage';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonCheck from '../../components/Button/ButtonCheck';
-import ButtonRegular from '../../components/Button/ButtonRegular';
-import BaseContainer from '../../components/Container/BaseContainer';
-import ContentContainer from '../../components/Container/ContentContainer';
-import FlexRowContainer from '../../components/Container/FlexRowContainer';
-import HeaderTitleBack from '../../components/Header/HeaderTitleBack';
-import Margin from '../../components/Margin';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { WorkoutStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
-import { listWorkout, upcomingData, workoutTrackerType } from './dummyData';
+import ButtonCheck from '../../components/atoms/Button/ButtonCheck';
+import ButtonRegular from '../../components/atoms/Button/ButtonRegular';
+import BaseContainer from '../../components/atoms/Container/BaseContainer';
+import ContentContainer from '../../components/atoms/Container/ContentContainer';
+import FlexRowContainer from '../../components/atoms/Container/FlexRowContainer';
+import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
+import Margin from '../../components/atoms/Margin/Margin';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { MainStackNavigation, WorkoutStackType } from '../../utils/types/navigation';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
-type WorkoutTrackerNavigationType = NativeStackScreenProps<WorkoutStackType, 'WorkoutTracker'>;
-type WorkoutTrackerRouteType = RouteProp<WorkoutStackType, 'WorkoutTracker'>;
+import { listWorkout, upcomingData, workoutTrackerType } from '../../utils/functions/datadummies';
 
-export default function WorkoutTracker() {
+type WorkoutTrackerNavigationType = NativeStackScreenProps<
+  MainStackNavigation,
+  'BottomNavbarStackScreen'
+>;
+
+export default function WorkoutTracker({ navigation, route }: WorkoutTrackerNavigationType) {
   const [isActive, setIsActive] = useState<object>({
     'Fullbody Workout': false,
     'Upperbody Workout': false,
     'AB Workout': false,
   });
 
-  const { navigation } = useNavigation<WorkoutTrackerNavigationType>();
-  const { params } = useRoute<WorkoutTrackerRouteType>();
-
   const toggleSwitch = (value: boolean, name: string) => {
     setIsActive((prev) => ({ ...prev, [name]: value }));
   };
 
   const navigateDetailScreen = (data: workoutTrackerType) => {
-    navigation.navigate('WorkoutDetail1', { data });
+    navigation.navigate('WorkoutTrackerStackScreen', {
+      screen: 'WorkoutDetail1',
+      params: { data },
+    });
   };
 
   return (
@@ -82,6 +85,7 @@ export default function WorkoutTracker() {
               />
             </FlexRowContainer>
             {upcomingData.map((workout, index) => {
+              const [valueSwitch, setValueSwitch] = useState(false);
               return (
                 <View key={index}>
                   <Margin margin={30} />
@@ -104,7 +108,6 @@ export default function WorkoutTracker() {
                           />
                           <TypographyRegular
                             color={colors.gray2}
-                            fontFamily={fontFamily.regular}
                             fontSize={fontSize.smallText}
                             lineHeight={lineHeight.smallText}
                             text="Today, 03:00pm"
@@ -118,8 +121,8 @@ export default function WorkoutTracker() {
                         }}
                         // thumbColor={workout.isActive ? '#f5dd4b' : '#f4f3f4'}
                         // ios_backgroundColor="#3e3e3e"
-                        onValueChange={(value) => toggleSwitch(value, workout.name)}
-                        value={isActive[workout.name]}
+                        onValueChange={setValueSwitch}
+                        value={valueSwitch}
                       />
                     </FlexRowContainer>
                   </ContentContainer>

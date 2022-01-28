@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { StyleSheet, View, Image, Dimensions } from 'react-native';
 import { images } from '../../assets/images';
-import { OnboardingStackType } from '../../types/navigation';
+import { OnboardingStackType } from '../../utils/types/navigation';
 import OnboardingTemplate from '../Master/OnboardingTemplate';
 
 const { width, height } = Dimensions.get('screen');

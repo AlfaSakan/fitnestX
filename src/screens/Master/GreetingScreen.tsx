@@ -3,11 +3,11 @@ import { Image, ImageSourcePropType, StyleSheet, Text, View } from 'react-native
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLarge from '../../components/Button/ButtonLarge';
-import ButtonLargeGradient from '../../components/Button/ButtonLargeGradient';
-import Margin from '../../components/Margin';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import ButtonLarge from '../../components/atoms/Button/ButtonLarge';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import Margin from '../../components/atoms/Margin/Margin';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
 export type GreetingScreenType = {
   image?: ImageSourcePropType;

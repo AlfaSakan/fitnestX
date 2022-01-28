@@ -1,252 +1,130 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
+
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import { ArrowRight2Icon } from '../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import HeaderTitleBack from '../../components/Header/HeaderTitleBack';
-import Margin from '../../components/Margin';
-import ProfilePicture from '../../components/ProfilePicture/ProfilePicture';
-import TypographyGradient from '../../components/Typography/TypographyGradient';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { HomeStackType } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+
+import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
+import Margin from '../../components/atoms/Margin/Margin';
+import ProfilePicture from '../../components/molecules/ProfilePicture/ProfilePicture';
+import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+
+import { HomeStackType } from '../../utils/types/navigation';
+
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
+
+import { useAppSelector } from '../../config/redux/app/hooks';
+import UserInfoComponent from '../../components/molecules/ProfileComponent/UserInfoComponent';
+import { calculateAge } from '../../utils/functions/calculateAge';
+import ProfileSectionComponent from '../../components/molecules/ProfileComponent/ProfileSectionComponent';
+import NotificationSectionComponent from '../../components/molecules/ProfileComponent/NotificationSectionComponent';
 
 type ProfileNavigationType = NativeStackScreenProps<HomeStackType, 'CongratulationScreen'>;
 
 export default function ProfileScreen() {
   const { navigation } = useNavigation<ProfileNavigationType>();
 
+  const [displayAge, setDisplayAge] = useState('');
+  const [notifEnable, setNotifEnable] = useState(false);
+
+  const { goal, firstName, lastName, height, weight, email, gender, dateOfBirth } = useAppSelector(
+    (state) => state.user
+  );
+
+  useEffect(() => {
+    const resultCalculateAge = calculateAge(new Date(dateOfBirth));
+    setDisplayAge(`${resultCalculateAge}`);
+  }, []);
+
   return (
     <View style={styles.container}>
       <HeaderTitleBack title="Profile" />
-      <Margin margin={35} />
-      <ProfilePicture
-        image={images.drinkImage}
-        colorImage={colors.blue}
-        text="Stefani Wong"
-        description="Lose a Fat Program"
-        textButton="Edit"
-      />
-      <Margin margin={15} />
-      <View style={styles.displayFlex}>
-        <View style={styles.profileUser}>
-          <TypographyGradient color={colors.blueLinear}>
-            <TypographyRegular
-              text="180cm"
-              fontFamily={fontFamily.medium}
-              fontSize={fontSize.mediumText}
-              lineHeight={lineHeight.mediumText}
-            />
-          </TypographyGradient>
-          <Margin margin={5} />
-          <TypographyRegular
-            text="Height"
-            fontFamily={fontFamily.regular}
-            fontSize={fontSize.smallText}
-            lineHeight={lineHeight.smallText}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.paddingStyle}>
+          <ProfilePicture
+            image={images.drinkImage}
+            colorImage={colors.blue}
+            text={`${firstName} ${lastName}`}
+            description={goal}
+            textButton="Edit"
           />
-        </View>
-        <View style={styles.profileUser}>
-          <TypographyGradient color={colors.blueLinear}>
-            <TypographyRegular
-              text="65Kg"
-              fontFamily={fontFamily.medium}
-              fontSize={fontSize.mediumText}
-              lineHeight={lineHeight.mediumText}
-            />
-          </TypographyGradient>
-          <Margin margin={5} />
-          <TypographyRegular
-            text="Weight"
-            fontFamily={fontFamily.regular}
-            fontSize={fontSize.smallText}
-            lineHeight={lineHeight.smallText}
-          />
-        </View>
-        <View style={styles.profileUser}>
-          <TypographyGradient color={colors.blueLinear}>
-            <TypographyRegular
-              text="22yo"
-              fontFamily={fontFamily.medium}
-              fontSize={fontSize.mediumText}
-              lineHeight={lineHeight.mediumText}
-            />
-          </TypographyGradient>
-          <Margin margin={5} />
-          <TypographyRegular
-            text="Age"
-            fontFamily={fontFamily.regular}
-            fontSize={fontSize.smallText}
-            lineHeight={lineHeight.smallText}
-          />
-        </View>
-      </View>
-      <Margin margin={30} />
-      <View style={styles.accountContainer}>
-        <TypographyRegular
-          text="Account"
-          fontFamily={fontFamily.semiBold}
-          fontSize={fontSize.largeText}
-          lineHeight={lineHeight.largeText}
-        />
-        <Margin margin={15} />
-        <View style={styles.displayFlex}>
+          <Margin margin={15} />
           <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.profileGradient}
-            />
+            <UserInfoComponent value={height} label="Height" />
+            <UserInfoComponent value={weight} label="Weight" />
+            <UserInfoComponent value={`${displayAge}yo`} label="Age" />
+          </View>
+
+          <Margin margin={30} />
+          <View style={styles.accountContainer}>
             <TypographyRegular
-              text="Personal Data"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
+              text="Account"
+              fontFamily={fontFamily.semiBold}
+              fontSize={fontSize.largeText}
+              lineHeight={lineHeight.largeText}
+            />
+
+            <Margin margin={15} />
+            <ProfileSectionComponent label="Personal Data" imageSection={images.profileGradient} />
+
+            <Margin margin={10} />
+            <ProfileSectionComponent
+              label="Achievement"
+              imageSection={images.achievementGradient}
+            />
+
+            <Margin margin={10} />
+            <ProfileSectionComponent
+              label="Activity History"
+              imageSection={images.activityHistoryGradient}
+            />
+
+            <Margin margin={10} />
+            <ProfileSectionComponent
+              label="Workout Progress"
+              imageSection={images.workoutProgressGradient}
             />
           </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
-        </View>
-        <Margin margin={10} />
-        <View style={styles.displayFlex}>
-          <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.achievementGradient}
-            />
+
+          <Margin margin={15} />
+          <View style={styles.accountContainer}>
             <TypographyRegular
-              text="Achievement"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
+              text="Notification"
+              fontFamily={fontFamily.semiBold}
+              fontSize={fontSize.largeText}
+              lineHeight={lineHeight.largeText}
             />
+
+            <Margin margin={15} />
+            <NotificationSectionComponent value={notifEnable} onValueChange={setNotifEnable} />
           </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
-        </View>
-        <Margin margin={10} />
-        <View style={styles.displayFlex}>
-          <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.activityHistoryGradient}
-            />
+
+          <Margin margin={15} />
+          <View style={styles.accountContainer}>
             <TypographyRegular
-              text="Activity History"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
+              text="Other"
+              fontFamily={fontFamily.semiBold}
+              fontSize={fontSize.largeText}
+              lineHeight={lineHeight.largeText}
             />
+
+            <Margin margin={15} />
+            <ProfileSectionComponent label="Contact Us" imageSection={images.mailGradient} />
+
+            <Margin margin={10} />
+            <ProfileSectionComponent label="Privacy Policy" imageSection={images.privacyGradient} />
+
+            <Margin margin={10} />
+            <ProfileSectionComponent label="Settings" imageSection={images.settingGradient} />
           </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
+          <Margin margin={15} />
         </View>
-        <Margin margin={10} />
-        <View style={styles.displayFlex}>
-          <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.workoutProgressGradient}
-            />
-            <TypographyRegular
-              text="Workout Progress"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
-            />
-          </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
-        </View>
-      </View>
-      <Margin margin={15} />
-      <View style={styles.accountContainer}>
-        <TypographyRegular
-          text="Notification"
-          fontFamily={fontFamily.semiBold}
-          fontSize={fontSize.largeText}
-          lineHeight={lineHeight.largeText}
-        />
-        <Margin margin={15} />
-        <View style={styles.displayFlex}>
-          <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.notificationGradient}
-            />
-            <TypographyRegular
-              text="Pop-up Notification"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
-            />
-          </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
-        </View>
-      </View>
-      <Margin margin={15} />
-      <View style={styles.accountContainer}>
-        <TypographyRegular
-          text="Other"
-          fontFamily={fontFamily.semiBold}
-          fontSize={fontSize.largeText}
-          lineHeight={lineHeight.largeText}
-        />
-        <Margin margin={15} />
-        <View style={styles.displayFlex}>
-          <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.mailGradient}
-            />
-            <TypographyRegular
-              text="Contact Us"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
-            />
-          </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
-        </View>
-        <Margin margin={10} />
-        <View style={styles.displayFlex}>
-          <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.privacyGradient}
-            />
-            <TypographyRegular
-              text="Privacy Policy"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
-            />
-          </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
-        </View>
-        <Margin margin={10} />
-        <View style={styles.displayFlex}>
-          <View style={styles.displayFlex}>
-            <Image
-              style={[styles.accountImage, { marginRight: 10 }]}
-              source={images.settingGradient}
-            />
-            <TypographyRegular
-              text="Settings"
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              color={colors.gray1}
-            />
-          </View>
-          {/* <Image style={styles.accountImage} source={images.arrowRight} /> */}
-          <ArrowRight2Icon />
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -255,7 +133,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: responsiveHeight(40),
-    paddingHorizontal: responsiveWidth(30),
     backgroundColor: colors.white2,
   },
   displayFlex: {
@@ -280,5 +157,8 @@ const styles = StyleSheet.create({
   accountImage: {
     width: responsiveWidth(20),
     height: responsiveWidth(20),
+  },
+  paddingStyle: {
+    paddingHorizontal: responsiveWidth(30),
   },
 });

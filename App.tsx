@@ -3,16 +3,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Provider } from 'react-redux';
-import { store } from './src/app/store';
+import { store } from './src/config/redux/app/store';
 
-import { MainStackNavigation } from './src/types/navigation';
+import { MainStackNavigation } from './src/utils/types/navigation';
 
 import NotificationScreen from './src/screens/NotificationScreen/NotificationScreen';
 import OnboardingStackScreen from './src/navigator/OnboardingStackScreen';
 import SignupAndLoginStackScreen from './src/navigator/SignupAndLoginStackScreen';
 import BottomNavbarStackScreen from './src/navigator/BottomNavbarStackScreen';
 import WorkoutTrackerStackScreen from './src/navigator/WorkoutTrackerStackScreen';
-
+import HomeStackScreen from './src/navigator/HomeStackScreen';
 
 const Stack = createNativeStackNavigator<MainStackNavigation>();
 
@@ -41,14 +41,9 @@ export default function App() {
             component={SignupAndLoginStackScreen}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-          name="HomeStackScreen"
-          component={HomeStackScreen}
-          options={{headerShown: false}}
-        /> */}
           <Stack.Screen
-            name="NotificationScreen"
-            component={NotificationScreen}
+            name="HomeStackScreen"
+            component={HomeStackScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

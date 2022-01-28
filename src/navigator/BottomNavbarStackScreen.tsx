@@ -1,19 +1,29 @@
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import LinearGradient from 'react-native-linear-gradient';
+
 import { HomeScreen, ProfileScreen } from '../screens/DashboardScreen';
 import HomeStackScreen from './HomeStackScreen';
 import ProfileStackScreen from './ProfileStackScreen';
-import HomeIcon from '../assets/Images/svg/HomeIcon';
-import HomeGradientIcon from '../assets/Images/svg/HomeGradientIcon';
-import ProfileIcon from '../assets/Images/svg/ProfileIcon';
-import ActivityIcon from '../assets/Images/svg/ActivityIcon';
-import CameraIcon from '../assets/Images/svg/CameraIcon';
-import SearchIcon from '../assets/Images/svg/SearchIcon';
-import ProfileGradientIcon from '../assets/Images/svg/ProfileGradientIcon';
-import CameraGradientIcon from '../assets/Images/svg/CameraGradientIcon';
-import ActivityGradientIcon from '../assets/Images/svg/ActivityGradientIcon';
+import { WorkoutTracker } from '../screens/WorkoutTrackerScreen';
 
-const Tab = createBottomTabNavigator();
+import { BottomNavbarStackType } from '../utils/types/navigation';
+
+import {
+  ActivityGradientIcon,
+  ActivityIcon,
+  CameraGradientIcon,
+  CameraIcon,
+  HomeGradientIcon,
+  HomeIcon,
+  ProfileGradientIcon,
+  ProfileIcon,
+  SearchIcon,
+} from '../assets/Images/svg';
+import { colors } from '../assets/colors';
+
+const Tab = createBottomTabNavigator<BottomNavbarStackType>();
 
 export default function BottomNavbarStackScreen({}) {
   return (
@@ -26,27 +36,35 @@ export default function BottomNavbarStackScreen({}) {
           switch (rn) {
             case 'HomeTab':
               return focused ? (
-                <HomeGradientIcon width={size} height={size} />
+                <DotBottomNavbar>
+                  <HomeGradientIcon width={size} height={size} />
+                </DotBottomNavbar>
               ) : (
                 <HomeIcon width={size} height={size} colorIcon={color} />
               );
             case 'ProfileTab':
               return focused ? (
-                <ProfileGradientIcon width={size} height={size} />
+                <DotBottomNavbar>
+                  <ProfileGradientIcon width={size} height={size} />
+                </DotBottomNavbar>
               ) : (
                 <ProfileIcon colorIcon={color} width={size} height={size} />
               );
             case 'SearchTab':
               return <SearchIcon colorIcon={color} width={size} height={size} />;
-            case 'ActivityTab':
+            case 'WorkoutTrackerTab':
               return focused ? (
-                <ActivityGradientIcon width={size} height={size} />
+                <DotBottomNavbar>
+                  <ActivityGradientIcon width={size} height={size} />
+                </DotBottomNavbar>
               ) : (
                 <ActivityIcon colorIcon={color} width={size} height={size} />
               );
             case 'CameraTab':
               return focused ? (
-                <CameraGradientIcon width={size} height={size} />
+                <DotBottomNavbar>
+                  <CameraGradientIcon width={size} height={size} />
+                </DotBottomNavbar>
               ) : (
                 <CameraIcon colorIcon={color} width={size} height={size} />
               );
@@ -56,15 +74,40 @@ export default function BottomNavbarStackScreen({}) {
         },
       })}
     >
-      <Tab.Screen name="HomeTab" component={HomeStackScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="ActivityTab" component={HomeStackScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="HomeTab" component={HomeScreen} options={{ headerShown: false }} />
       <Tab.Screen
-        name="SearchTab"
-        component={ProfileStackScreen}
+        name="WorkoutTrackerTab"
+        component={WorkoutTracker}
         options={{ headerShown: false }}
       />
+      <Tab.Screen name="SearchTab" component={ProfileScreen} options={{ headerShown: false }} />
       <Tab.Screen name="CameraTab" component={HomeScreen} options={{ headerShown: false }} />
       <Tab.Screen name="ProfileTab" component={ProfileScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }
+
+interface DotBottomNavbar {
+  children: React.ReactNode;
+}
+
+const DotBottomNavbar: React.FC<DotBottomNavbar> = ({ children }) => {
+  return (
+    <View style={styles.dotContainer}>
+      {children}
+      <LinearGradient colors={colors.purpleLinear} style={styles.dotStyle} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  dotContainer: {
+    alignItems: 'center',
+  },
+  dotStyle: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    marginTop: 3,
+  },
+});

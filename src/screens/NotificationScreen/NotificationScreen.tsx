@@ -4,12 +4,12 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
-import HeaderTitleBack from '../../components/Header/HeaderTitleBack';
-import LineSeparator from '../../components/LineSeparator';
-import Margin from '../../components/Margin';
-import NotificationCard from '../../components/NotificationInformation/NotificationCard';
-import { MainStackNavigation } from '../../types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
+import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
+import LineSeparator from '../../components/atoms/LineSeparator/LineSeparator';
+import Margin from '../../components/atoms/Margin/Margin';
+import NotificationCard from '../../components/molecules/NotificationInformation/NotificationCard';
+import { MainStackNavigation } from '../../utils/types/navigation';
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
 type NotificationNavigationType = NativeStackScreenProps<MainStackNavigation, 'NotificationScreen'>;
 

@@ -1,33 +1,42 @@
-import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
+import { latestWorkout } from '../../utils/functions/datadummies';
+
+import { MainStackNavigation } from '../../utils/types/navigation';
+
+import { useAppSelector } from '../../config/redux/app/hooks';
+
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import NotificationIcon from '../../assets/Images/svg/NotificationIcon';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonCheck from '../../components/Button/ButtonCheck';
-import Margin from '../../components/Margin';
-import TypographyGradient from '../../components/Typography/TypographyGradient';
-import TypographyRegular from '../../components/Typography/TypographyRegular';
-import { responsiveHeight, responsiveWidth } from '../../utils/responsiveDimension';
 import { ArrowDown2Icon } from '../../assets/Images/svg';
-import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { HomeStackType, MainStackNavigation } from '../../types/navigation';
 
-import { useAppSelector } from '../../app/hooks';
-import { useNavigation } from '@react-navigation/native';
-import WaterInTake from '../../components/HomeComponent/WaterInTake';
+import ButtonCheck from '../../components/atoms/Button/ButtonCheck';
+import Margin from '../../components/atoms/Margin/Margin';
+import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
+import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+import WaterInTake from '../../components/molecules/HomeComponent/WaterInTake';
+import HistoryWorkoutCard from '../../components/molecules/CardProgram/HistoryWorkoutCard';
+import BodyMassIndex from '../../components/molecules/HomeComponent/BodyMassIndex';
 
-type HomeNavigationType = NativeStackScreenProps<HomeStackType, 'HomeScreen'>;
+type HomeNavigationType = NativeStackScreenProps<MainStackNavigation, 'BottomNavbarStackScreen'>;
 
 export default function HomeScreen({ navigation }: HomeNavigationType) {
-  const { firstName, lastName } = useAppSelector((state) => state.user);
+  const [bmiCalc, setBmiCalc] = useState(0);
+  const { firstName, lastName, weight, height } = useAppSelector((state) => state.user);
 
-  const mainNavigation =
-    useNavigation<NativeStackNavigationProp<MainStackNavigation, 'BottomNavbarStackScreen'>>();
+  useEffect(() => {
+    setBmiCalc(weight / Math.pow(height / 100, 2));
+  }, []);
 
   const navigateToNotif = () => {
-    mainNavigation.navigate('NotificationScreen');
+    navigation.navigate('HomeStackScreen', { screen: 'NotificationScreen' });
   };
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -51,6 +60,10 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
             <NotificationIcon />
           </TouchableOpacity>
         </View>
+
+        <Margin margin={30} />
+        <BodyMassIndex bmi={bmiCalc} />
+
         <Margin margin={30} />
         <View style={styles.boxContainer}>
           <TypographyRegular
@@ -64,9 +77,12 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
             buttonColor={colors.blueLinear}
             borderRadius={responsiveHeight(24)}
             color={colors.white}
-            onPress={() => navigation.navigate('ActivityTrackerScreen')}
+            onPress={() =>
+              navigation.navigate('HomeStackScreen', { screen: 'ActivityTrackerScreen' })
+            }
           />
         </View>
+
         <Margin margin={30} />
         <TypographyRegular
           text="Activity Status"
@@ -76,17 +92,6 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
         />
         <Margin margin={15} />
         <View>
-          {/* <View style={styles.heartRateContainer}>
-            <TypographyRegular
-              fontSize={fontSize.smallText}
-              lineHeight={lineHeight.smallText}
-              fontFamily={fontFamily.medium}
-              text="Heart Rate"
-            />
-            <TypographyGradient color={colors.blueLinear}>
-              <Text style={styles.heartText}>78 BPM</Text>
-            </TypographyGradient>
-          </View> */}
           <Margin margin={16} />
           <View style={styles.headerContainer}>
             <View style={styles.waterIntakeContainer}>
@@ -153,20 +158,43 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
         <Margin margin={30} />
         <View style={styles.headerContainer}>
           <TypographyRegular
-            text="Workout Progress"
+            text="Latest Workout"
             fontFamily={fontFamily.semiBold}
             fontSize={fontSize.largeText}
             lineHeight={lineHeight.largeText}
           />
-          <ButtonCheck
-            text="Check"
-            buttonColor={colors.blueLinear}
-            borderRadius={responsiveHeight(50)}
-            color={colors.white}
-            image={<ArrowDown2Icon />}
-          />
+          <TouchableOpacity>
+            <TypographyRegular
+              text="See More"
+              fontFamily={fontFamily.medium}
+              fontSize={fontSize.smallText}
+              lineHeight={lineHeight.smallText}
+              color={colors.gray2}
+            />
+          </TouchableOpacity>
         </View>
         <Margin margin={15} />
+        <View>
+          {latestWorkout.map((workout, index) => {
+            return (
+              <View key={index}>
+                <HistoryWorkoutCard
+                  image={images.program2}
+                  colorImage={colors.blue}
+                  text={workout.type}
+                  description={`${workout.caloriesBurn} Calories Burn | ${workout.time} minutes`}
+                  backgroundColor={colors.white}
+                  paddingHorizontal={responsiveWidth(15)}
+                  paddingTop={responsiveHeight(15)}
+                  paddingBottom={responsiveHeight(10)}
+                  borderRadius={responsiveWidth(16)}
+                  progress={workout.progress}
+                />
+                <Margin margin={15} />
+              </View>
+            );
+          })}
+        </View>
       </ScrollView>
     </View>
   );
