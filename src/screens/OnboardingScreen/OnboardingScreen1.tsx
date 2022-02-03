@@ -1,12 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
-import { images } from '../../assets/images';
-import { OnboardingStackType } from '../../utils/types/navigation';
-import OnboardingTemplate from '../Master/OnboardingTemplate';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const { width, height } = Dimensions.get('screen');
+import { images } from '../../assets/images';
+
+import { OnboardingStackType } from '../../utils/types/navigation';
+
+import OnboardingTemplate from '../../components/templates/OnboardingTemplate';
 
 type OnboardingNavigationType = NativeStackScreenProps<OnboardingStackType, 'Onboarding1'>;
 
@@ -24,12 +23,3 @@ export default function OnboardingScreen1({ navigation }: OnboardingNavigationTy
     />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  imageStyle: {
-    width,
-  },
-});

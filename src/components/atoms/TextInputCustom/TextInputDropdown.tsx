@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../../assets/colors';
 import ArrowDown2Icon from '../../../assets/Images/svg/ArrowDown2Icon';

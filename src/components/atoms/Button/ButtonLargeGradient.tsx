@@ -30,6 +30,9 @@ const ButtonLargeGradient: React.FC<ButtonLargeGradientType> = ({
   onPress,
   buttonColor = colors.blueLinear,
 }) => {
+
+
+
   return (
     <TouchableOpacity onPress={onPress}>
       <LinearGradient

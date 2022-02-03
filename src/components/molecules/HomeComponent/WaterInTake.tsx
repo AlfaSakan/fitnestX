@@ -24,7 +24,6 @@ const WaterInTake: React.FC<WaterInTakeInterface> = ({ data = waterInTakeDummy, 
   return (
     <View style={styles.container}>
       <View style={styles.waterParameter}>
-        {/* <View /> */}
         <LinearGradient colors={colors.blueLinear} style={{ flex: amountLiter / 1000 / target }} />
       </View>
       <View>

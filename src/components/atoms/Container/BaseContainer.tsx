@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
 import { colors } from '../../../assets/colors';
 import { responsiveHeight } from '../../../utils/functions/responsiveDimension';
 
@@ -14,7 +14,10 @@ const BaseContainer: React.FC<BaseContainerType> = ({
 }) => {
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      <View style={styles.body}>{children}</View>
+      <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+      <ScrollView>
+        <View style={styles.body}>{children}</View>
+      </ScrollView>
     </View>
   );
 };
@@ -24,7 +27,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   body: {
-    marginTop: responsiveHeight(40),
+    paddingTop: responsiveHeight(Platform.OS === 'android' ? 10 : 40),
+    paddingBottom: responsiveHeight(40),
   },
 });
 

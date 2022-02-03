@@ -12,7 +12,8 @@ export type WorkoutStackType = {
 };
 
 export type BottomNavbarStackType = {
-  HomeTab: NavigatorScreenParams<HomeStackType>;
+  // HomeTab: NavigatorScreenParams<HomeStackType>;
+  HomeTab: undefined;
   ProfileTab: NavigatorScreenParams<ProfileStackType>;
   WorkoutTrackerTab: NavigatorScreenParams<WorkoutStackType>;
   SearchTab: undefined;
@@ -32,6 +33,7 @@ export type ProfileStackType = {
 };
 
 export type OnboardingStackType = {
+  LandingScreen: undefined;
   GetStarted: undefined;
   Onboarding1: undefined;
   Onboarding2: undefined;

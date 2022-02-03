@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
@@ -14,7 +15,7 @@ import ProfilePicture from '../../components/molecules/ProfilePicture/ProfilePic
 import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
 import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
 
-import { HomeStackType } from '../../utils/types/navigation';
+import { HomeStackType, MainStackNavigation } from '../../utils/types/navigation';
 
 import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
@@ -23,18 +24,23 @@ import UserInfoComponent from '../../components/molecules/ProfileComponent/UserI
 import { calculateAge } from '../../utils/functions/calculateAge';
 import ProfileSectionComponent from '../../components/molecules/ProfileComponent/ProfileSectionComponent';
 import NotificationSectionComponent from '../../components/molecules/ProfileComponent/NotificationSectionComponent';
+import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
 
 type ProfileNavigationType = NativeStackScreenProps<HomeStackType, 'CongratulationScreen'>;
+type MainNavigationType = NativeStackScreenProps<MainStackNavigation, 'BottomNavbarStackScreen'>;
 
-export default function ProfileScreen() {
-  const { navigation } = useNavigation<ProfileNavigationType>();
-
+export default function ProfileScreen({ navigation }: MainNavigationType) {
   const [displayAge, setDisplayAge] = useState('');
   const [notifEnable, setNotifEnable] = useState(false);
 
   const { goal, firstName, lastName, height, weight, email, gender, dateOfBirth } = useAppSelector(
     (state) => state.user
   );
+
+  const onPressLogOut = async () => {
+    await AsyncStorage.removeItem('user');
+    navigation.navigate('SignupAndLoginStackScreen', { screen: 'LoginScreen' });
+  };
 
   useEffect(() => {
     const resultCalculateAge = calculateAge(new Date(dateOfBirth));
@@ -122,6 +128,14 @@ export default function ProfileScreen() {
             <Margin margin={10} />
             <ProfileSectionComponent label="Settings" imageSection={images.settingGradient} />
           </View>
+          <Margin margin={15} />
+
+          <ButtonLargeGradient
+            buttonColor={colors.blueLinear}
+            text="Logout"
+            onPress={onPressLogOut}
+            color={colors.white}
+          />
           <Margin margin={15} />
         </View>
       </ScrollView>

@@ -1,23 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { genderType } from '../../../../utils/types/gender';
+import { GenderType } from '../../../../utils/types/gender';
+import { UserType } from '../../../../utils/types/userType';
 
-interface UserState {
-  firstName: string;
-  lastName: string;
-  email: string;
-  gender: genderType;
-  dateOfBirth: string;
-  weight: number;
-  height: number;
-  goal: string;
-}
-
-const initialState: UserState = {
+const initialState: UserType = {
   firstName: '',
   lastName: '',
   email: '',
   gender: 'male',
-  dateOfBirth: '',
+  dateOfBirth: 0,
   weight: 0,
   height: 0,
   goal: '',
@@ -33,13 +23,13 @@ const userSlice = createSlice({
     setLastName(state, action: PayloadAction<string>) {
       state.lastName = action.payload;
     },
-    setEmail(state, action: PayloadAction<string>) {
+    setEmail(state, action: PayloadAction<string | null>) {
       state.email = action.payload;
     },
-    setGender(state, action: PayloadAction<genderType>) {
+    setGender(state, action: PayloadAction<GenderType>) {
       state.gender = action.payload;
     },
-    setDateOfBirth(state, action: PayloadAction<string>) {
+    setDateOfBirth(state, action: PayloadAction<number>) {
       state.dateOfBirth = action.payload;
     },
     setWeight(state, action: PayloadAction<number>) {
@@ -50,6 +40,16 @@ const userSlice = createSlice({
     },
     setGoal(state, action: PayloadAction<string>) {
       state.goal = action.payload;
+    },
+    setUserData(state, action: PayloadAction<UserType>) {
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.dateOfBirth = action.payload.dateOfBirth;
+      state.email = action.payload.email;
+      state.gender = action.payload.gender;
+      state.goal = action.payload.goal;
+      state.height = action.payload.height;
+      state.weight = action.payload.weight;
     },
   },
 });
@@ -63,5 +63,6 @@ export const {
   setWeight,
   setHeight,
   setGoal,
+  setUserData,
 } = userSlice.actions;
 export default userSlice.reducer;

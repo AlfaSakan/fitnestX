@@ -23,7 +23,7 @@ interface TextInputWithUnitType {
   gradientColor?: string[];
   maxLength?: number;
   unit?: string;
-};
+}
 
 const TextInputWithUnit: React.FC<TextInputWithUnitType> = ({
   placeholder,
@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: responsiveHeight(15),
     flexDirection: 'row',
-    // width: '100%',
-    padding: responsiveWidth(15),
+    paddingHorizontal: responsiveWidth(15),
     borderRadius: responsiveWidth(14),
     alignItems: 'center',
+    paddingVertical: responsiveHeight(1),
   },
   image1: {
     width: responsiveWidth(18),

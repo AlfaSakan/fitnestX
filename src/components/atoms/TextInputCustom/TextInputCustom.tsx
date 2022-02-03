@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { KeyboardTypeOptions, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardTypeOptions, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../../assets/colors';
 import HideIcon from '../../../assets/Images/svg/HideIcon';
 import ShowIcon from '../../../assets/Images/svg/ShowIcon';
@@ -84,15 +84,10 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: responsiveHeight(15),
     flexDirection: 'row',
-    // width: '100%',
-    padding: responsiveWidth(15),
+    paddingVertical: Platform.OS === 'android' ? responsiveHeight(1) : responsiveHeight(15),
+    paddingHorizontal: responsiveHeight(10),
     borderRadius: responsiveWidth(14),
     alignItems: 'center',
-  },
-  image1: {
-    width: responsiveWidth(18),
-    height: responsiveWidth(18),
-    marginRight: responsiveWidth(10),
   },
   textInput: {
     flex: 1,

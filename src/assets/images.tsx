@@ -33,4 +33,7 @@ export const images = {
   notificationGradient: require('./Images/gradient/notificationGradient.png'),
   privacyGradient: require('./Images/gradient/privacyGradient.png'),
   settingGradient: require('./Images/gradient/settingGradient.png'),
+
+  // LOADING ANIMATION
+  loadingAnimation: require('./Images/loadingAnimation.json'),
 };

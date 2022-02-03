@@ -32,9 +32,9 @@ type ActivityTrackerNavigationType = NativeStackScreenProps<HomeStackType, 'Acti
 export default function ActivityTrackerScreen({ navigation }: ActivityTrackerNavigationType) {
   return (
     <View style={styles.container}>
-      <HeaderTitleBack title="Activity Tracker" onPressBack={() => navigation.goBack()} />
-      <Margin margin={30} />
       <ScrollView showsVerticalScrollIndicator={false}>
+        <HeaderTitleBack title="Activity Tracker" onPressBack={() => navigation.goBack()} />
+        <Margin margin={30} />
         <View style={{ paddingHorizontal: responsiveWidth(30) }}>
           <View style={styles.body1Container}>
             <View style={styles.displayFlex}>

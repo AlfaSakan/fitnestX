@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: responsiveHeight(30),
+    // marginBottom: responsiveHeight(30),
     paddingHorizontal: responsiveWidth(30),
   },
 });

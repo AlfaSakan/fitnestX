@@ -1,44 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import {
-  Alert,
-  Dimensions,
-  Image,
-  Modal,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
-import { colors } from '../../assets/colors';
-import { images } from '../../assets/images';
-import CalendarIcon from '../../assets/Images/svg/CalendarIcon';
-import SwapIcon from '../../assets/Images/svg/SwapIcon';
-import TwoUserIcon from '../../assets/Images/svg/TwoUserIcon';
-import WeightScale1Icon from '../../assets/Images/svg/WeightScale1Icon';
-import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
-import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
-import Margin from '../../components/atoms/Margin/Margin';
-import TextInputDropdown from '../../components/atoms/TextInputCustom/TextInputDropdown';
-import TextInputWithUnit from '../../components/atoms/TextInputCustom/TextInputWithUnit';
-import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
-import { SignupAndLoginStackType } from '../../utils/types/navigation';
-import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
+import { Alert } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { useAppDispatch, useAppSelector } from '../../config/redux/app/hooks';
+import { SignupAndLoginStackType } from '../../utils/types/navigation';
+import { GenderType } from '../../utils/types/gender';
+
+import { useAppDispatch } from '../../config/redux/app/hooks';
 import {
   setDateOfBirth,
   setGender,
   setHeight,
   setWeight,
 } from '../../config/redux/features/user/userInformation';
-import { genderType } from '../../utils/types/gender';
-import DatePicker from 'react-native-date-picker';
-import moment from 'moment';
 
-const { width, height } = Dimensions.get('screen');
+import RegisterAccountTemplate from '../../components/templates/RegisterAccountTemplate';
 
 type RegisterAccountNavigationType = NativeStackScreenProps<
   SignupAndLoginStackType,
@@ -46,18 +21,16 @@ type RegisterAccountNavigationType = NativeStackScreenProps<
 >;
 
 export default function RegisterAccountData({ navigation }: RegisterAccountNavigationType) {
-  // const [gender, setGender] = useState('');
-  // const [dateOfBirth, setDateOfBirth] = useState('');
-  // const [inputWeight, setInputWeight] = useState('');
-  // const [inputHeight, setInputHeight] = useState('');
+  const [genderInput, setGenderInput] = useState<GenderType>('male');
+  const [dobInput, setDobInput] = useState(0);
+  const [weightInput, setWeightInput] = useState(0);
+  const [heightInput, setHeightInput] = useState(0);
   const [isDropdownGender, setIsDropdownGender] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [date, setDate] = useState(new Date());
 
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state);
-  const { gender, height, weight, dateOfBirth } = user;
 
   const createOneButtonAlert = () =>
     Alert.alert('Please insert data incorrect way', '', [
@@ -72,9 +45,9 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
     setIsDropdownGender(!isDropdownGender);
   };
 
-  const chooseGender = (sex: genderType) => {
-    dispatch(setGender(sex));
-    setIsDropdownGender(false);
+  const chooseGender = (sex: GenderType) => {
+    setGenderInput(sex);
+    handleDropdownGender();
   };
 
   const navigateNextScreen = () => {
@@ -82,181 +55,76 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
       createOneButtonAlert();
       return;
     }
+
+    dispatch(setGender(genderInput));
+    dispatch(setDateOfBirth(dobInput));
+    dispatch(setHeight(heightInput));
+    dispatch(setWeight(weightInput));
+
     navigation.navigate('ChooseYourGoals');
   };
 
   const handleHeight = (value: string) => {
-    // setInputHeight(value);
     if (isNaN(Number(value))) {
       return;
     }
-    dispatch(setHeight(Number(value)));
+    setHeightInput(Number(value));
   };
 
   const handleWeight = (value: string) => {
-    // setInputWeight(value);
     if (isNaN(Number(value))) {
       return;
     }
-    dispatch(setWeight(Number(value)));
+    setWeightInput(Number(value));
+  };
+
+  const handleCalendar = () => {
+    setOpenCalendar(!openCalendar);
+  };
+
+  const onOpenCalendar = () => {
+    setOpenCalendar(true);
+  };
+
+  const onCancelDatePicker = () => {
+    setOpenCalendar(false);
+  };
+
+  const onConfirmDatePicker = (date: Date) => {
+    setOpenCalendar(false);
+    setDate(date);
+    setDobInput(date.getTime());
+  };
+
+  const onDateChange = (value: Date) => {
+    setDate(value);
+    setDobInput(value.getTime());
   };
 
   useEffect(() => {
     setIsValid(true);
-    if (dateOfBirth === '' || weight === 0 || height === 0) {
+    if (dobInput === 0 || weightInput === 0 || heightInput === 0) {
       setIsValid(false);
     }
-  }, [gender, dateOfBirth, height, weight]);
+  }, [genderInput, dobInput, heightInput, weightInput]);
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <Image style={styles.image} source={images.womenInBall} resizeMode="contain" />
-        <Margin margin={30} />
-        <View style={styles.body}>
-          <TypographyRegular
-            text="Let's complete your profile"
-            fontSize={fontSize.h4}
-            lineHeight={lineHeight.h4}
-            fontFamily={fontFamily.bold}
-            color={colors.black}
-          />
-          <TypographyRegular
-            text="It will help us to know more about you!"
-            fontSize={fontSize.smallText}
-            lineHeight={lineHeight.smallText}
-            color={colors.gray1}
-          />
-          <Margin margin={30} />
-          <TextInputDropdown
-            image={<TwoUserIcon />}
-            isDropdown={true}
-            value={gender}
-            placeholder="Choose Gender"
-            onPress={handleDropdownGender}
-          />
-          <TextInputDropdown
-            // value={dateOfBirth}
-            value={moment(date).format('DD MMMM YYYY')}
-            // value={date.toString()}
-            image={<CalendarIcon />}
-            placeholder="Date of Birth"
-            onPress={() => setOpenCalendar(true)}
-          />
-          <TextInputWithUnit
-            placeholder="Your Weight"
-            value={weight === 0 ? '' : weight.toString()}
-            image={<WeightScale1Icon />}
-            unit="KG"
-            onChangeText={handleWeight}
-            maxLength={3}
-          />
-          <TextInputWithUnit
-            placeholder="Your Height"
-            value={height === 0 ? '' : height.toString()}
-            onChangeText={handleHeight}
-            image={<SwapIcon />}
-            unit="CM"
-            maxLength={3}
-          />
-          <Margin margin={30} />
-          <ButtonLargeGradient
-            text="Next >"
-            buttonColor={colors.blueLinear}
-            color={colors.white}
-            onPress={navigateNextScreen}
-          />
-          <Margin margin={40} />
-        </View>
-      </ScrollView>
-      <DatePicker
-        modal
-        mode="date"
-        open={openCalendar}
-        date={date}
-        onConfirm={(date) => {
-          setOpenCalendar(false);
-          setDate(date);
-          dispatch(setDateOfBirth(moment(date).format('DD MMMM YYYY')));
-        }}
-        onCancel={() => {
-          setOpenCalendar(false);
-        }}
-        // onDateChange={(newValue) => {
-        //   setDate(newValue);
-        //   dispatch(setDateOfBirth(moment(newValue).format('DD MMMM YYYY')));
-        // }}
-      />
-      <Modal
-        visible={isDropdownGender}
-        transparent={true}
-        onRequestClose={() => setIsDropdownGender(false)}
-        animationType="fade"
-      >
-        <TouchableWithoutFeedback onPress={() => setIsDropdownGender(false)}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <TypographyRegular
-                text="Select your gender"
-                fontSize={fontSize.largeText}
-                lineHeight={lineHeight.largeText}
-              />
-              <Margin margin={30} />
-              <TouchableOpacity style={styles.chooseGender} onPress={() => chooseGender('male')}>
-                <TypographyRegular
-                  text="Male"
-                  fontSize={fontSize.largeText}
-                  lineHeight={lineHeight.largeText}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.chooseGender} onPress={() => chooseGender('female')}>
-                <TypographyRegular
-                  text="Female"
-                  fontSize={fontSize.largeText}
-                  lineHeight={lineHeight.largeText}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    </View>
+    <RegisterAccountTemplate
+      chooseGender={chooseGender}
+      date={date}
+      genderInput={genderInput}
+      heightInput={heightInput}
+      weightInput={weightInput}
+      handleHeight={handleHeight}
+      handleWeight={handleWeight}
+      isDropdownGender={isDropdownGender}
+      handleDropdownGender={handleDropdownGender}
+      onCancelDatePicker={handleCalendar}
+      onConfirmDatePicker={onConfirmDatePicker}
+      onOpenCalendar={handleCalendar}
+      onPressButton={navigateNextScreen}
+      openCalendar={openCalendar}
+      onDateChange={onDateChange}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  body: {
-    paddingHorizontal: responsiveWidth(30),
-    alignItems: 'center',
-  },
-  image: {
-    // width,
-    width: responsiveWidth(375),
-    height: responsiveHeight(350),
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalContent: {
-    paddingTop: responsiveWidth(20),
-    width: responsiveWidth(200),
-    height: responsiveWidth(200),
-    borderRadius: responsiveWidth(14),
-    backgroundColor: colors.white,
-    alignItems: 'center',
-  },
-  chooseGender: {
-    backgroundColor: colors.gray4,
-    width: '100%',
-    alignItems: 'center',
-    paddingVertical: responsiveWidth(7),
-    marginBottom: 5,
-  },
-});

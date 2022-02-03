@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { images } from '../../assets/images';
 import { HomeStackType } from '../../utils/types/navigation';
-import GreetingScreen from '../Master/GreetingScreen';
+import GreetingScreen from '../../components/templates/GreetingScreen';
 
 type CongratulationNavigationType = NativeStackScreenProps<HomeStackType, 'CongratulationScreen'>;
 

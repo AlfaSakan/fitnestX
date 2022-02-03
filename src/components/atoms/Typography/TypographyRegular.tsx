@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { ColorValue, Text } from 'react-native';
 import { colors } from '../../../assets/colors';
 
 interface TypographyRegularType {
   text?: string;
   fontFamily?: string;
   fontSize?: number;
-  color?: string;
+  color?: ColorValue;
   lineHeight?: number;
   textAlign?: 'left' | 'auto' | 'right' | 'center' | 'justify' | undefined;
   textDecorationLine?: 'none' | 'underline' | 'line-through' | 'underline line-through' | undefined;
