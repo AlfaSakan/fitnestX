@@ -1,6 +1,7 @@
 export const colors = {
   white: '#ffffff',
   white2: '#fafafa',
+  white3: '#e8e8e8',
   black: '#1d1617',
   gray1: '#7b6f72',
   gray2: '#ada4a5',
@@ -16,5 +17,7 @@ export const colors = {
   purple1: '#c58bf2',
   purple2: '#eea4ce',
   blueLinear: ['#9dceff', '#92a3fd'],
+  blueLinearOpacity: ['#9dceff4d', '#92a3fd4d'],
   purpleLinear: ['#c58bf2', '#eea4ce'],
+  purpleLinearOpacity: ['#c58bf24d', '#eea4ce4d'],
 };

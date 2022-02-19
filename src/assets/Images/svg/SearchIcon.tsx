@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
 import { colors } from '../../colors';
 
-export default function SearchIcon({ height = 18, width = 18, colorIcon = colors.gray1 }) {
+const SearchIcon = ({ height = 18, width = 18, colorIcon = colors.gray1 }) => {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
       <Circle
@@ -23,4 +23,6 @@ export default function SearchIcon({ height = 18, width = 18, colorIcon = colors
       />
     </Svg>
   );
-}
+};
+
+export default memo(SearchIcon);

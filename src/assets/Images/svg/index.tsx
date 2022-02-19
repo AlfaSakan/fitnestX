@@ -36,6 +36,7 @@ import WeightScale1Icon from './WeightScale1Icon';
 import CircularProgress from './CircularProgress';
 import ArrowRight2GradientIcon from './ArrowRight2GradientIcon';
 import BannerPie from './BannerPie';
+import FilterSearch from './FilterSearch';
 
 export {
   AddUserIcon,
@@ -76,4 +77,5 @@ export {
   ArrowRight2GradientIcon,
   CircularProgress,
   BannerPie,
+  FilterSearch,
 };

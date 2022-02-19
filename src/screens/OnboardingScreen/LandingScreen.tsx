@@ -3,7 +3,7 @@ import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-naviga
 import React, { useEffect } from 'react';
 import LandingTemplate from '../../components/templates/LandingTemplate';
 import { MainStackNavigation, OnboardingStackType } from '../../utils/types/navigation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import { colors } from '../../assets/colors';
 import UserFirebase from '../../config/firebase/userFirebase';
 import { LoginType } from '../../utils/types/loginType';
@@ -29,7 +29,7 @@ const LandingScreen = ({ navigation }: LandingScreenNavigation) => {
   useEffect(() => {
     setTimeout(async () => {
       try {
-        const userDataStorage = await AsyncStorage.getItem('user');
+        const userDataStorage = await AsyncStorageLib.getItem('user');
         if (userDataStorage) {
           const dataStorage = JSON.parse(userDataStorage) as LoginType;
 

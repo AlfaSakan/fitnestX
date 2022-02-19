@@ -24,6 +24,9 @@ export const images = {
   barbelImage: require('./Images/barbel.png'),
   skippingRopeImage: require('./Images/skipping-rope.png'),
   waterBottleImage: require('./Images/water-bottle.png'),
+  salmonNigiri: require('./Images/nigiri.png'),
+  glassOfMilk: require('./Images/glass-of-milk.png'),
+  breadImage: require('./Images/breadImage.png'),
   // GRADIENT
   profileGradient: require('./Images/gradient/profileGradient.png'),
   achievementGradient: require('./Images/gradient/achievementGradient.png'),

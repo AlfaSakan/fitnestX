@@ -93,7 +93,6 @@ export default function ActivityTrackerScreen({ navigation }: ActivityTrackerNav
               borderRadius={50}
               text="Weekly"
               color={colors.white}
-              // image={images.arrowDownWhite}
               image={<ArrowDown2Icon colorIcon={colors.white} />}
             />
           </View>

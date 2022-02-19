@@ -13,6 +13,7 @@ import BottomNavbarStackScreen from './src/navigator/BottomNavbarStackScreen';
 import WorkoutTrackerStackScreen from './src/navigator/WorkoutTrackerStackScreen';
 import HomeStackScreen from './src/navigator/HomeStackScreen';
 import { LoadProvider } from './src/config/LoaderContext/LoaderContext';
+import MealPlannerStackScreen from './src/navigator/MealPlannerStackScreen';
 
 const Stack = createNativeStackNavigator<MainStackNavigation>();
 
@@ -21,7 +22,12 @@ export default function App() {
     <Provider store={store}>
       <LoadProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="OnboardingStackScreen">
+          <Stack.Navigator initialRouteName="MealPlannerStackScreen">
+            <Stack.Screen
+              name="MealPlannerStackScreen"
+              component={MealPlannerStackScreen}
+              options={{ headerShown: false, animation: 'slide_from_right' }}
+            />
             <Stack.Screen
               name="OnboardingStackScreen"
               component={OnboardingStackScreen}
