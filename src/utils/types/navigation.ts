@@ -45,6 +45,7 @@ export type MealPlannerStackType = {
   MealPlanner: undefined;
   CategoryMeal: undefined;
   MealDetail: undefined;
+  MealSchedule: undefined;
 };
 
 export type HomeStackType = {

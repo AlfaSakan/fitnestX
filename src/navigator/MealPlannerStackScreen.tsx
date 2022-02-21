@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MealPlannerStackType } from '../utils/types/navigation';
-import { CategoryMeal, MealDetail, MealPlannerScreen } from '../screens/MealPlanner';
+import { CategoryMeal, MealDetail, MealPlannerScreen, MealSchedule } from '../screens/MealPlanner';
 
 const MealPlannerStack = createNativeStackNavigator<MealPlannerStackType>();
 
@@ -21,6 +21,11 @@ const MealPlannerStackScreen = () => {
       <MealPlannerStack.Screen
         name="MealDetail"
         component={MealDetail}
+        options={{ headerShown: false, animation: 'slide_from_right' }}
+      />
+      <MealPlannerStack.Screen
+        name="MealSchedule"
+        component={MealSchedule}
         options={{ headerShown: false, animation: 'slide_from_right' }}
       />
     </MealPlannerStack.Navigator>

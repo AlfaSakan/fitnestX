@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image, ScrollView, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -19,6 +19,8 @@ import { responsiveHeight, responsiveWidth } from '../../utils/functions/respons
 import { MealPlannerStackType } from '../../utils/types/navigation';
 
 import { postUser } from '../api/user';
+
+import ExampleCalendar from '../../components/organisms/Calendar';
 
 const { width } = Dimensions.get('window');
 
@@ -51,6 +53,10 @@ const MealPlannerScreen = ({ navigation }: params) => {
 
   const onPressBack = () => {
     navigation.goBack();
+  };
+
+  const onPressMealSchedule = () => {
+    navigation.navigate('MealSchedule');
   };
 
   return (
@@ -92,6 +98,7 @@ const MealPlannerScreen = ({ navigation }: params) => {
               borderRadius={50}
               text="Check"
               color={colors.white}
+              onPress={onPressMealSchedule}
             />
           </FlexRowContainer>
         </ContentContainer>
