@@ -9,6 +9,7 @@ interface ContentContainerType {
   padding?: number;
   paddingHorizontal?: number;
   paddingVertical?: number;
+  isShadow?: boolean;
 }
 
 const ContentContainer: React.FC<ContentContainerType> = ({
@@ -17,11 +18,12 @@ const ContentContainer: React.FC<ContentContainerType> = ({
   padding = responsiveWidth(20),
   paddingHorizontal = padding,
   paddingVertical = padding,
+  isShadow = true,
 }) => {
   return (
     <View
       style={[
-        styles.body1Container,
+        isShadow ? styles.body1Container : styles.bodyContainer,
         { backgroundColor, padding, paddingHorizontal, paddingVertical },
       ]}
     >
@@ -41,6 +43,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     elevation: 4,
+  },
+  bodyContainer: {
+    borderRadius: 22,
   },
 });
 

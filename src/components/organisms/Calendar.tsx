@@ -25,9 +25,10 @@ const { width } = Dimensions.get('window');
 interface Props {
   onPress: (value: Date) => void;
   selectedDate: Date;
+  isTitle?: boolean;
 }
 
-const Calendar: React.FC<Props> = ({ selectedDate = new Date(), onPress }) => {
+const Calendar: React.FC<Props> = ({ selectedDate = new Date(), onPress, isTitle = true }) => {
   const [date, setDate] = useState(new Date());
 
   const updateState = (date: Date) => {
@@ -51,15 +52,17 @@ const Calendar: React.FC<Props> = ({ selectedDate = new Date(), onPress }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerCalendar}>
-        <TouchableOpacity onPress={() => onPressArrowLeft(date)}>
-          <ArrowLeft2Icon />
-        </TouchableOpacity>
-        <Text>{`${getMonthAndYear(date)}`}</Text>
-        <TouchableOpacity onPress={() => onPressArrowRight(date)}>
-          <ArrowRight2Icon />
-        </TouchableOpacity>
-      </View>
+      {isTitle && (
+        <View style={styles.headerCalendar}>
+          <TouchableOpacity onPress={() => onPressArrowLeft(date)}>
+            <ArrowLeft2Icon />
+          </TouchableOpacity>
+          <Text>{`${getMonthAndYear(date)}`}</Text>
+          <TouchableOpacity onPress={() => onPressArrowRight(date)}>
+            <ArrowRight2Icon />
+          </TouchableOpacity>
+        </View>
+      )}
       <View style={{ width }}>
         <ScrollView
           horizontal

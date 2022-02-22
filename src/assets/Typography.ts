@@ -48,3 +48,9 @@ export const smallTypography = {
   fontSize: fontSize.smallText,
   lineHeight: lineHeight.smallText,
 };
+
+export const captionTypography = {
+  fontFamily: fontFamily.medium,
+  fontSize: fontSize.caption,
+  lineHeight: lineHeight.caption,
+};

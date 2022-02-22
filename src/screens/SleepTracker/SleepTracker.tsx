@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import moment from 'moment';
-import React from 'react';
+import React, { memo } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../assets/colors';
@@ -22,7 +22,7 @@ import ScheduleCard from '../../components/organisms/Card/ScheduleCard';
 import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 import { SleepTrackerStackType } from '../../utils/types/navigation';
 
-const todayScheduleData = [
+export const todayScheduleData = [
   {
     name: 'Bedtime',
     date: new Date(2022, 1, 23, 22),
@@ -40,7 +40,9 @@ const SleepTracker = ({ navigation, route }: Params) => {
     navigation.goBack();
   };
 
-  const onPressSleepTracker = () => {};
+  const onPressSleepTracker = () => {
+    navigation.navigate('SleepSchedule');
+  };
 
   return (
     <BaseContainerWithHeader onPressBack={goBack} title="Sleep Tracker">
@@ -106,7 +108,7 @@ const SleepTracker = ({ navigation, route }: Params) => {
   );
 };
 
-export default SleepTracker;
+export default memo(SleepTracker);
 
 const styles = StyleSheet.create({
   container: {
