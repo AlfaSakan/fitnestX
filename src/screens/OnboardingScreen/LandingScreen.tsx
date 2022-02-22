@@ -5,10 +5,8 @@ import LandingTemplate from '../../components/templates/LandingTemplate';
 import { MainStackNavigation, OnboardingStackType } from '../../utils/types/navigation';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import { colors } from '../../assets/colors';
-import UserFirebase from '../../config/firebase/userFirebase';
 import { LoginType } from '../../utils/types/loginType';
-import { useAppDispatch, useAppSelector } from '../../config/redux/app/hooks';
-import { FirebaseError } from 'firebase/app';
+import { useAppDispatch } from '../../config/redux/app/hooks';
 import { setLoginDispatch } from '../../config/redux/features/login';
 import { setEmail } from '../../config/redux/features/user/userInformation';
 
@@ -24,7 +22,7 @@ const LandingScreen = ({ navigation }: LandingScreenNavigation) => {
 
   const dispatch = useAppDispatch();
 
-  const userFirebase = new UserFirebase();
+  // const userFirebase = new UserFirebase();
 
   useEffect(() => {
     setTimeout(async () => {
@@ -36,17 +34,17 @@ const LandingScreen = ({ navigation }: LandingScreenNavigation) => {
           dispatch(setEmail(dataStorage.email));
           dispatch(setLoginDispatch(dataStorage));
 
-          const checkingDataUser = await userFirebase.getDatabase(dataStorage.uid);
+          // const checkingDataUser = await userFirebase.getDatabase(dataStorage.uid);
 
-          if (checkingDataUser instanceof FirebaseError || !checkingDataUser) {
-            navigation.replace('GetStarted');
-            return;
-          }
+          // if (checkingDataUser instanceof FirebaseError || !checkingDataUser) {
+          //   navigation.replace('GetStarted');
+          //   return;
+          // }
 
-          if (!checkingDataUser.goal) {
-            mainNavigate.navigate('SignupAndLoginStackScreen', { screen: 'RegisterAccountData' });
-            return;
-          }
+          // if (!checkingDataUser.goal) {
+          //   mainNavigate.navigate('SignupAndLoginStackScreen', { screen: 'RegisterAccountData' });
+          //   return;
+          // }
 
           mainNavigate.replace('BottomNavbarStackScreen', { screen: 'HomeTab' });
           return;

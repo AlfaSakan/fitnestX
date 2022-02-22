@@ -1,12 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
+
 import { SignupAndLoginStackType } from '../../utils/types/navigation';
+import { regexSimplePassword, regexValidateEmail } from '../../utils/functions/RegularExpression';
+import { toastError } from '../../utils/types/toastError';
+
 import SignUpTemplate from '../../components/templates/SignUpTemplate';
-import { regexValidateEmail, regexValidatePassword } from '../../utils/functions/RegularExpression';
-import UserFirebase from '../../config/firebase/userFirebase';
-import { FirebaseError } from 'firebase/app';
-import { User } from 'firebase/auth';
+import { postUser } from '../api/user';
 
 type SignupNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'SignupScreen'>;
 
@@ -21,7 +22,7 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
 
-  const userFirebase = new UserFirebase();
+  // const userFirebase = new UserFirebase();
 
   const createOneButtonAlert = () =>
     Alert.alert('Please insert data in correct way', '', [
@@ -86,7 +87,7 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
         return;
       }
 
-      if (!regexValidatePassword.test(password)) {
+      if (!regexSimplePassword.test(password)) {
         setIsPasswordValid(false);
         passwordAlert();
         return;
@@ -97,34 +98,37 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
         return;
       }
 
-      const result = await userFirebase.signUpUser(emailState, password);
+      const result = await postUser({
+        email: emailState,
+        password: password,
+        passwordConfirmation: password,
+        firstName: firstNameState,
+        lastName: lastNameState,
+      });
 
-      if (result instanceof FirebaseError || !result) {
-        throw result;
-      }
+      if (result.status !== 200) throw result;
 
-      const resultSetName = await userFirebase.setNameUser(
-        firstNameState,
-        lastNameState,
-        result.uid
-      );
+      console.log(result);
 
-      if (resultSetName instanceof FirebaseError || !resultSetName) {
-        throw resultSetName;
-      }
+      // const result = await userFirebase.signUpUser(emailState, password);
+
+      // if (result instanceof FirebaseError || !result) {
+      //   throw result;
+      // }
+
+      // const resultSetName = await userFirebase.setNameUser(
+      //   firstNameState,
+      //   lastNameState,
+      //   result.uid
+      // );
+
+      // if (resultSetName instanceof FirebaseError || !resultSetName) {
+      //   throw resultSetName;
+      // }
 
       navigation.navigate('RegisterAccountData');
     } catch (error) {
-      if (error instanceof FirebaseError) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        Alert.alert('Failed to Sign Up', `${errorMessage} (${errorCode})`, [
-          {
-            text: 'Continue',
-            style: 'cancel',
-          },
-        ]);
-      }
+      toastError(error);
     }
   };
 

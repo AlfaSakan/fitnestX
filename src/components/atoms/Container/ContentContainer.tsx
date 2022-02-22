@@ -7,14 +7,27 @@ interface ContentContainerType {
   children: React.ReactNode;
   backgroundColor?: string;
   padding?: number;
+  paddingHorizontal?: number;
+  paddingVertical?: number;
 }
 
 const ContentContainer: React.FC<ContentContainerType> = ({
   children,
   backgroundColor = colors.blue,
   padding = responsiveWidth(20),
+  paddingHorizontal = padding,
+  paddingVertical = padding,
 }) => {
-  return <View style={[styles.body1Container, { backgroundColor, padding }]}>{children}</View>;
+  return (
+    <View
+      style={[
+        styles.body1Container,
+        { backgroundColor, padding, paddingHorizontal, paddingVertical },
+      ]}
+    >
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

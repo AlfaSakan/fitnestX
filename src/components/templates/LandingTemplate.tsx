@@ -7,6 +7,7 @@ import { responsiveHeight, responsiveWidth } from '../../utils/functions/respons
 import ButtonLarge from '../atoms/Button/ButtonLarge';
 import TypographyRegular from '../atoms/Typography/TypographyRegular';
 
+import Toast from 'react-native-toast-message';
 interface Props {
   onClickButton?: () => void;
   buttonLabel?: string;
@@ -77,6 +78,7 @@ const LandingTemplate: React.FC<Props> = ({
           />
         )}
       </View>
+      <Toast />
     </LinearGradient>
   );
 };

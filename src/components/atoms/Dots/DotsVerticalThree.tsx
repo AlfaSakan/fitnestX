@@ -8,6 +8,7 @@ interface DotVerticalThreeType {
   marginBottom?: number;
   color?: string;
   backgroundColor?: string;
+  radius?: number
 }
 
 const DotVerticalThree: React.FC<DotVerticalThreeType> = ({
@@ -15,33 +16,34 @@ const DotVerticalThree: React.FC<DotVerticalThreeType> = ({
   marginBottom = 2,
   color = colors.black,
   backgroundColor = colors.white,
+  radius = 4,
 }) => {
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <View
         style={{
-          width: 4,
-          height: 4,
+          width: radius,
+          height: radius,
           backgroundColor: color,
-          borderRadius: 2,
+          borderRadius: radius / 2,
           marginBottom,
         }}
       />
       <View
         style={{
-          width: 4,
-          height: 4,
+          width: radius,
+          height: radius,
           backgroundColor: color,
-          borderRadius: 2,
+          borderRadius: radius / 2,
           marginBottom,
         }}
       />
       <View
         style={{
-          width: 4,
-          height: 4,
+          width: radius,
+          height: radius,
           backgroundColor: color,
-          borderRadius: 2,
+          borderRadius: radius / 2,
           marginRight,
         }}
       />

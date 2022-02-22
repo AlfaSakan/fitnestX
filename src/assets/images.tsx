@@ -35,6 +35,8 @@ export const images = {
   plate2: require('./Images/plate2.png'),
   protein: require('./Images/protein.png'),
   transFat: require('./Images/trans-fat.png'),
+  alarmIcon: require('./Images/alarm.png'),
+  bedIcon: require('./Images/bed.png'),
   // GRADIENT
   profileGradient: require('./Images/gradient/profileGradient.png'),
   achievementGradient: require('./Images/gradient/achievementGradient.png'),

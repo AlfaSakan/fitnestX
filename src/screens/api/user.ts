@@ -14,12 +14,4 @@ export const getUser = async () => {
   }
 };
 
-export const postUser = async (input: object) => {
-  try {
-    const result = await fetchApi(endPoint, 'POST', input);
-
-    return result;
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const postUser = async (input: object) => await fetchApi(endPoint, 'POST', input);

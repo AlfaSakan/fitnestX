@@ -14,6 +14,7 @@ import WorkoutTrackerStackScreen from './src/navigator/WorkoutTrackerStackScreen
 import HomeStackScreen from './src/navigator/HomeStackScreen';
 import { LoadProvider } from './src/config/LoaderContext/LoaderContext';
 import MealPlannerStackScreen from './src/navigator/MealPlannerStackScreen';
+import SleepTrackerStackScreen from './src/navigator/SleepTrackerStackScreen';
 
 const Stack = createNativeStackNavigator<MainStackNavigation>();
 
@@ -22,7 +23,12 @@ export default function App() {
     <Provider store={store}>
       <LoadProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="MealPlannerStackScreen">
+          <Stack.Navigator initialRouteName="SleepTrackerStackType">
+            <Stack.Screen
+              name="SleepTrackerStackType"
+              component={SleepTrackerStackScreen}
+              options={{ headerShown: false, animation: 'slide_from_right' }}
+            />
             <Stack.Screen
               name="MealPlannerStackScreen"
               component={MealPlannerStackScreen}

@@ -1,10 +1,14 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import { LockIcon, MessageIcon, ProfileIcon } from '../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
+
 import { responsiveWidth } from '../../utils/functions/responsiveDimension';
+
 import ButtonLargeGradient from '../atoms/Button/ButtonLargeGradient';
 import ButtonSquare from '../atoms/Button/ButtonSquare';
 import BaseContainer from '../atoms/Container/BaseContainer';
@@ -136,6 +140,7 @@ const SignUpTemplate: React.FC<SignUpProps> = ({
           </TouchableOpacity>
         </View>
       </PaddingHorizontal>
+      <Toast />
     </BaseContainer>
   );
 };

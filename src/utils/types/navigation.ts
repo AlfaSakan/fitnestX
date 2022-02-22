@@ -48,6 +48,12 @@ export type MealPlannerStackType = {
   MealSchedule: undefined;
 };
 
+export type SleepTrackerStackType = {
+  AddAlarm: undefined;
+  SleepTracker: undefined;
+  SleepSchedule: undefined;
+};
+
 export type HomeStackType = {
   ActivityTrackerScreen: undefined;
   CongratulationScreen: undefined;
@@ -61,4 +67,5 @@ export type MainStackNavigation = {
   SignupAndLoginStackScreen: NavigatorScreenParams<SignupAndLoginStackType>;
   HomeStackScreen: NavigatorScreenParams<HomeStackType>;
   MealPlannerStackScreen: NavigatorScreenParams<MealPlannerStackType>;
+  SleepTrackerStackType: NavigatorScreenParams<SleepTrackerStackType>;
 };

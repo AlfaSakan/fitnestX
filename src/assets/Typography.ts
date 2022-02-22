@@ -30,3 +30,21 @@ export const lineHeight = {
   caption: 10 * 1.5,
   belowCaption: 8 * 1.5,
 };
+
+export const titleTypography = {
+  fontFamily: fontFamily.semiBold,
+  fontSize: fontSize.largeText,
+  lineHeight: lineHeight.largeText,
+};
+
+export const mediumTypography = {
+  fontFamily: fontFamily.medium,
+  fontSize: fontSize.mediumText,
+  lineHeight: lineHeight.mediumText,
+};
+
+export const smallTypography = {
+  fontFamily: fontFamily.regular,
+  fontSize: fontSize.smallText,
+  lineHeight: lineHeight.smallText,
+};
