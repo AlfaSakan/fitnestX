@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
@@ -38,7 +38,7 @@ export default function ProfileScreen({ navigation }: MainNavigationType) {
   );
 
   const onPressLogOut = async () => {
-    await AsyncStorage.removeItem('user');
+    await AsyncStorageLib.removeItem('user');
     navigation.navigate('SignupAndLoginStackScreen', { screen: 'LoginScreen' });
   };
 

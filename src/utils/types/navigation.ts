@@ -41,6 +41,13 @@ export type OnboardingStackType = {
   Onboarding4: undefined;
 };
 
+export type MealPlannerStackType = {
+  MealPlanner: undefined;
+  CategoryMeal: undefined;
+  MealDetail: undefined;
+  MealSchedule: undefined;
+};
+
 export type HomeStackType = {
   ActivityTrackerScreen: undefined;
   CongratulationScreen: undefined;
@@ -53,4 +60,5 @@ export type MainStackNavigation = {
   OnboardingStackScreen: NavigatorScreenParams<OnboardingStackType>;
   SignupAndLoginStackScreen: NavigatorScreenParams<SignupAndLoginStackType>;
   HomeStackScreen: NavigatorScreenParams<HomeStackType>;
+  MealPlannerStackScreen: NavigatorScreenParams<MealPlannerStackType>;
 };

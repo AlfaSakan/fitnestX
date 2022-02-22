@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import { FirebaseError, initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
@@ -199,7 +199,7 @@ export default class UserFirebase {
       email: user.email,
     };
 
-    await AsyncStorage.setItem('user', JSON.stringify(jsonValue));
+    await AsyncStorageLib.setItem('user', JSON.stringify(jsonValue));
   }
 
   errorFromFirebase(error: FirebaseError) {

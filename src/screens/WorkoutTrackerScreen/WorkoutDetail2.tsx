@@ -2,9 +2,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+
 import { colors } from '../../assets/colors';
 import { CircleGradientIcon, CloseIcon } from '../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
+
 import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
 import BaseContainer from '../../components/atoms/Container/BaseContainer';
 import FlexRowContainer from '../../components/atoms/Container/FlexRowContainer';
@@ -12,6 +14,7 @@ import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
 import Margin from '../../components/atoms/Margin/Margin';
 import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
 import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
+
 import { WorkoutStackType } from '../../utils/types/navigation';
 import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 

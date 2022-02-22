@@ -8,9 +8,14 @@ import { responsiveHeight, responsiveWidth } from '../../../utils/functions/resp
 interface ButtonCircleType {
   onPress(): void;
   color?: string[];
+  icon?: React.ReactNode;
 }
 
-const ButtonCircle: React.FC<ButtonCircleType> = ({ onPress, color = colors.blueLinear }) => {
+const ButtonCircle: React.FC<ButtonCircleType> = ({
+  onPress,
+  color = colors.blueLinear,
+  icon = <ArrowRight2Icon colorIcon={colors.white} width={18} height={18} />,
+}) => {
   return (
     <TouchableOpacity style={styles.cornerPosition} onPress={onPress}>
       <LinearGradient
@@ -19,7 +24,7 @@ const ButtonCircle: React.FC<ButtonCircleType> = ({ onPress, color = colors.blue
         colors={color}
         style={styles.circleButton}
       >
-        <ArrowRight2Icon colorIcon={colors.white} width={18} height={18} />
+        {icon}
       </LinearGradient>
     </TouchableOpacity>
   );
@@ -28,12 +33,12 @@ const ButtonCircle: React.FC<ButtonCircleType> = ({ onPress, color = colors.blue
 const styles = StyleSheet.create({
   cornerPosition: {
     position: 'absolute',
-    bottom: responsiveHeight(40),
+    bottom: responsiveHeight(30),
     right: responsiveWidth(30),
   },
   circleButton: {
-    width: 50,
-    height: 50,
+    width: responsiveWidth(60),
+    height: responsiveHeight(60),
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
