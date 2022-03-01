@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { WaterInTakeDataInterface, waterInTakeDummy } from '../../../utils/functions/datadummies';
@@ -21,6 +21,8 @@ interface WaterInTakeInterface {
 
 const WaterInTake: React.FC<WaterInTakeInterface> = ({ data = [], target = 8 }) => {
   const amountLiter = data.reduce((totalLiter, liter) => {
+    if (new Date(liter.time).getDate() !== new Date().getDate()) return totalLiter;
+
     return totalLiter + liter.waterInMiliLiter;
   }, 0);
 
@@ -50,11 +52,29 @@ const WaterInTake: React.FC<WaterInTakeInterface> = ({ data = [], target = 8 }) 
           const date = new Date(inTake.time);
           if (date.getDate() !== new Date().getDate()) return;
 
-          const time = moment(inTake.time).format('hh:mm');
+          const time = moment(inTake.time).format('ha');
+
+          if (index > 0) {
+            const prevTime = moment(data[index - 1].time).format('ha');
+            if (time === prevTime) return;
+          }
+
+          if (index < data.length) {
+            let i = index + 1;
+            let nextTime = moment(data[i].time).format('ha');
+
+            while (nextTime === time) {
+              inTake.waterInMiliLiter = inTake.waterInMiliLiter + data[i].waterInMiliLiter;
+              i++;
+              nextTime = moment(data[i].time).format('ha');
+            }
+          }
 
           return (
             <View key={index} style={{ flexDirection: 'row', flex: 1, alignItems: 'flex-start' }}>
-              <View style={{ alignItems: 'center', justifyContent: 'space-between', paddingTop: 3 }}>
+              <View
+                style={{ alignItems: 'center', justifyContent: 'space-between', paddingTop: 3 }}
+              >
                 <View style={styles.dot} />
                 <View style={styles.line} />
               </View>
@@ -119,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WaterInTake;
+export default memo(WaterInTake);

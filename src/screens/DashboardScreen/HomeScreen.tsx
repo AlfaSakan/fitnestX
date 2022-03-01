@@ -4,10 +4,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 import { latestWorkout } from '../../utils/functions/datadummies';
-
 import { MainStackNavigation } from '../../utils/types/navigation';
 
 import { useAppSelector } from '../../config/redux/app/hooks';
+import { useLoad } from '../../config/LoaderContext/LoaderContext';
 
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
@@ -22,9 +22,9 @@ import TypographyRegular from '../../components/atoms/Typography/TypographyRegul
 import WaterInTake from '../../components/molecules/HomeComponent/WaterInTake';
 import HistoryWorkoutCard from '../../components/molecules/CardProgram/HistoryWorkoutCard';
 import BodyMassIndex from '../../components/molecules/HomeComponent/BodyMassIndex';
-import AsyncStorageLib from '@react-native-async-storage/async-storage';
-import { useLoad } from '../../config/LoaderContext/LoaderContext';
+
 import { getActivity } from '../api/activity';
+import { useIsFocused } from '@react-navigation/native';
 
 type HomeNavigationType = NativeStackScreenProps<MainStackNavigation, 'BottomNavbarStackScreen'>;
 
@@ -38,6 +38,8 @@ export interface ActivitiesDocument {
 export default function HomeScreen({ navigation }: HomeNavigationType) {
   const [bmiCalc, setBmiCalc] = useState(0);
   const [waterInTake, setWaterIntake] = useState<ActivitiesDocument[]>([]);
+
+  const isFocused = useIsFocused();
 
   const { firstName, lastName, weight, height } = useAppSelector((state) => state.user);
 
@@ -58,14 +60,17 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
     }
   };
 
-  useEffect(() => {
-    setBmiCalc(weight / Math.pow(height / 100, 2));
-    hitAPIActivity();
-  }, []);
-
   const navigateToNotif = () => {
     navigation.navigate('HomeStackScreen', { screen: 'NotificationScreen' });
   };
+
+  useEffect(() => {
+    setBmiCalc(weight / Math.pow(height / 100, 2));
+  }, []);
+
+  useEffect(() => {
+    hitAPIActivity();
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
@@ -122,7 +127,7 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
         />
         <Margin margin={15} />
         <View>
-          <Margin margin={16} />
+          {/* <Margin margin={16} /> */}
           <View style={styles.headerContainer}>
             <View style={styles.waterIntakeContainer}>
               <WaterInTake data={waterInTake} />
