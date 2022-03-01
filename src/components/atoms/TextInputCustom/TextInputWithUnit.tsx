@@ -1,12 +1,8 @@
-import React, { ReactElement } from 'react';
-import { Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
 import { colors } from '../../../assets/colors';
-import { images } from '../../../assets/images';
-import HideIcon from '../../../assets/Images/svg/HideIcon';
-import ShowIcon from '../../../assets/Images/svg/ShowIcon';
 import { fontFamily, fontSize, lineHeight } from '../../../assets/Typography';
 import { responsiveHeight, responsiveWidth } from '../../../utils/functions/responsiveDimension';
-import ButtonSquare from '../Button/ButtonSquare';
 import ButtonSquareGradient from '../Button/ButtonSquareGradient';
 
 interface TextInputWithUnitType {
@@ -96,7 +92,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: responsiveWidth(15),
     borderRadius: responsiveWidth(14),
     alignItems: 'center',
-    paddingVertical: responsiveHeight(1),
+    paddingVertical: responsiveHeight(15),
   },
   image1: {
     width: responsiveWidth(18),

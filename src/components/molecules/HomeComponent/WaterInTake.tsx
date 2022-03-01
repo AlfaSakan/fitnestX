@@ -11,16 +11,19 @@ import Margin from '../../atoms/Margin/Margin';
 import TypographyGradient from '../../atoms/Typography/TypographyGradient';
 import TypographyRegular from '../../atoms/Typography/TypographyRegular';
 import LinearGradient from 'react-native-linear-gradient';
+import { ActivitiesDocument } from '../../../screens/DashboardScreen/HomeScreen';
+import moment from 'moment';
 
 interface WaterInTakeInterface {
-  data?: WaterInTakeDataInterface[];
+  data?: ActivitiesDocument[];
   target?: number;
 }
 
-const WaterInTake: React.FC<WaterInTakeInterface> = ({ data = waterInTakeDummy, target = 8 }) => {
+const WaterInTake: React.FC<WaterInTakeInterface> = ({ data = [], target = 8 }) => {
   const amountLiter = data.reduce((totalLiter, liter) => {
-    return totalLiter + liter.amount;
+    return totalLiter + liter.waterInMiliLiter;
   }, 0);
+
   return (
     <View style={styles.container}>
       <View style={styles.waterParameter}>
@@ -44,20 +47,25 @@ const WaterInTake: React.FC<WaterInTakeInterface> = ({ data = waterInTakeDummy, 
           lineHeight={lineHeight.caption}
         />
         {data.map((inTake, index) => {
+          const date = new Date(inTake.time);
+          if (date.getDate() !== new Date().getDate()) return;
+
+          const time = moment(inTake.time).format('hh:mm');
+
           return (
             <View key={index} style={{ flexDirection: 'row', flex: 1, alignItems: 'flex-start' }}>
-              <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+              <View style={{ alignItems: 'center', justifyContent: 'space-between', paddingTop: 3 }}>
                 <View style={styles.dot} />
                 <View style={styles.line} />
               </View>
               <View style={{ marginLeft: 8 }}>
                 <TypographyRegular
-                  text={`${inTake.fromTime} - ${inTake.untilTime}`}
+                  text={`${time}`}
                   fontSize={fontSize.belowCaption}
                   lineHeight={lineHeight.belowCaption}
                 />
                 <TypographyGradient color={colors.purpleLinear} style={styles.inTakeText}>
-                  {`${inTake.amount}ml`}
+                  {`${inTake.waterInMiliLiter}ml`}
                 </TypographyGradient>
               </View>
             </View>

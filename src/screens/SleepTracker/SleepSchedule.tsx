@@ -2,10 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import moment from 'moment';
 import React, { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
 import { PlusIcon } from '../../assets/Images/svg';
 import { mediumTypography, smallTypography, titleTypography } from '../../assets/Typography';
+
 import ButtonCheck from '../../components/atoms/Button/ButtonCheck';
 import ContentContainer from '../../components/atoms/Container/ContentContainer';
 import FlexRowContainer from '../../components/atoms/Container/FlexRowContainer';
@@ -16,8 +18,10 @@ import TypographyRegular from '../../components/atoms/Typography/TypographyRegul
 import BaseContainerWithHeader from '../../components/organisms/BaseContainerWithHeader';
 import Calendar from '../../components/organisms/Calendar';
 import ScheduleCard from '../../components/organisms/Card/ScheduleCard';
+
 import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 import { SleepTrackerStackType } from '../../utils/types/navigation';
+
 import { todayScheduleData } from './SleepTracker';
 
 type Params = NativeStackScreenProps<SleepTrackerStackType, 'SleepSchedule'>;
@@ -29,11 +33,16 @@ const SleepSchedule = ({ navigation }: Params) => {
     navigation.goBack();
   };
 
+  const onPressButton = () => {
+    navigation.navigate('AddAlarm');
+  };
+
   return (
     <BaseContainerWithHeader
       onPressBack={goBack}
       title="Sleep Schedule"
       isButtonRounded
+      onPressButton={onPressButton}
       icon={
         <PlusIcon
           width={responsiveWidth(40)}

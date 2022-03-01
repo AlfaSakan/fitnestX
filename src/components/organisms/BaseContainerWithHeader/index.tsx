@@ -1,4 +1,5 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ParamListBase } from '@react-navigation/native';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { memo } from 'react';
 import { View } from 'react-native';
 import { colors } from '../../../assets/colors';
@@ -7,7 +8,6 @@ import BaseContainerNew from '../../atoms/Container/BaseContainerNew';
 import HeaderTitleBackNew from '../../atoms/Header/HeaderTitleBackNew';
 import ButtonLargeGradientBottom from '../../molecules/ButtonInBottom/ButtonLargeGradientBottom';
 
-type Params = NativeStackScreenProps<any, any>;
 interface Props {
   onPressBack?: () => void;
   children: React.ReactNode;
@@ -17,6 +17,7 @@ interface Props {
   onPressButton?: () => void;
   isButtonRounded?: boolean;
   icon?: React.ReactNode;
+  navigation?: NativeStackNavigationProp<ParamListBase, string>;
 }
 
 const BaseContainerWithHeader: React.FC<Props> = ({
@@ -28,10 +29,15 @@ const BaseContainerWithHeader: React.FC<Props> = ({
   onPressButton = () => {},
   isButtonRounded = false,
   icon,
+  navigation,
 }) => {
+  const goBack = () => {
+    navigation?.goBack();
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      <HeaderTitleBackNew title={title} onPressBack={onPressBack} />
+      <HeaderTitleBackNew title={title} onPressBack={onPressBack ?? goBack} />
       <BaseContainerNew>{children}</BaseContainerNew>
       {isButtonBottom && <ButtonLargeGradientBottom text={buttonText} onPress={onPressButton} />}
       {isButtonRounded && <ButtonCircle onPress={onPressButton} icon={icon} />}

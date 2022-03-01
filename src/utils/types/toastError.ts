@@ -11,5 +11,6 @@ export const toastError = (error: any) => {
       text1: `Error Status (${error.status})`,
       text2: `Duplicate Email (${error.result.code})`,
     });
+    return;
   }
 };

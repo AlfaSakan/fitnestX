@@ -1,31 +1,3 @@
-// LoadingContext.js
-// import React, { createContext, useContext, useState } from 'react';
-// import Loader from './Loader';
-
-// const LoadingContext = createContext({
-//   loading: false,
-//   setLoading: (value: boolean) => {},
-// });
-
-// export const LoadingProvider: React.FC = ({ children }) => {
-//   const [loading, setLoading] = useState(false);
-//   const value = { loading, setLoading };
-//   return (
-//     <LoadingContext.Provider value={value}>
-//       {children}
-//       <Loader loading={loading} />
-//     </LoadingContext.Provider>
-//   );
-// };
-
-// export function useLoading() {
-//   const context = useContext(LoadingContext);
-//   if (!context) {
-//     throw new Error('useLoading must be used within LoadingProvider');
-//   }
-//   return context;
-// }
-
 import React from 'react';
 import Loader from '../../components/molecules/Loader/Loader';
 

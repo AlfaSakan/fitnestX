@@ -32,6 +32,7 @@ interface Props {
   displayDate?: string;
   differenceHours?: number | string;
   differenceMinutes?: number | string;
+  onPressOption?: () => void;
 }
 
 const ScheduleCard: React.FC<Props> = ({
@@ -42,6 +43,7 @@ const ScheduleCard: React.FC<Props> = ({
   displayDate,
   differenceHours = 6,
   differenceMinutes = 22,
+  onPressOption
 }) => {
   return (
     <View>
@@ -112,6 +114,7 @@ const ScheduleCard: React.FC<Props> = ({
             top: responsiveHeight(5),
             transform: [{ scale: 0.8 }],
           }}
+          onPress={onPressOption}
         >
           <DotVerticalThree color={colors.gray1} />
         </TouchableOpacity>

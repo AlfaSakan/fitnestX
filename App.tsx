@@ -23,7 +23,7 @@ export default function App() {
     <Provider store={store}>
       <LoadProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="SleepTrackerStackType">
+          <Stack.Navigator initialRouteName="OnboardingStackScreen">
             <Stack.Screen
               name="SleepTrackerStackType"
               component={SleepTrackerStackScreen}

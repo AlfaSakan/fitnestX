@@ -20,7 +20,7 @@ type RegisterAccountNavigationType = NativeStackScreenProps<
   'RegisterAccountData'
 >;
 
-export default function RegisterAccountData({ navigation }: RegisterAccountNavigationType) {
+export default function RegisterAccountData({ navigation, route }: RegisterAccountNavigationType) {
   const [genderInput, setGenderInput] = useState<GenderType>('male');
   const [dobInput, setDobInput] = useState(0);
   const [weightInput, setWeightInput] = useState(0);
@@ -61,7 +61,7 @@ export default function RegisterAccountData({ navigation }: RegisterAccountNavig
     dispatch(setHeight(heightInput));
     dispatch(setWeight(weightInput));
 
-    navigation.navigate('ChooseYourGoals');
+    navigation.navigate('ChooseYourGoals', { password: route.params.password });
   };
 
   const handleHeight = (value: string) => {

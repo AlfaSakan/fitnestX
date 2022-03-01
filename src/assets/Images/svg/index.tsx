@@ -37,6 +37,10 @@ import CircularProgress from './CircularProgress';
 import ArrowRight2GradientIcon from './ArrowRight2GradientIcon';
 import BannerPie from './BannerPie';
 import FilterSearch from './FilterSearch';
+import BedStroke from './BedStroke';
+import ClockIcon from './ClockIcon';
+import RepeatIcon from './RepeatIcon';
+import VibratePhone from './VibratePhone';
 
 export {
   AddUserIcon,
@@ -78,4 +82,8 @@ export {
   CircularProgress,
   BannerPie,
   FilterSearch,
+  BedStroke,
+  ClockIcon,
+  RepeatIcon,
+  VibratePhone,
 };

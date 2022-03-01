@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FirebaseError } from 'firebase/app';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { images } from '../../assets/images';
@@ -7,10 +6,14 @@ import { images } from '../../assets/images';
 import { SignupAndLoginStackType } from '../../utils/types/navigation';
 import { ProgramsType } from '../../utils/types/programsType';
 
-import { useAppSelector } from '../../config/redux/app/hooks';
-import UserFirebase from '../../config/firebase/userFirebase';
+import { useAppSelector, useAppDispatch } from '../../config/redux/app/hooks';
 
 import ChooseYourGoalTemplate from '../../components/templates/ChooseYourGoalTemplate';
+import { postUser } from '../api/user';
+import { toastError } from '../../utils/types/toastError';
+import { createSession } from '../api/session';
+import { setGoal } from '../../config/redux/features/user/userInformation';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const programs: ProgramsType[] = [
   {
@@ -39,22 +42,37 @@ type ChooseYourGoalsNavigationType = NativeStackScreenProps<
   'ChooseYourGoals'
 >;
 
-export default function ChooseYourGoals({ navigation }: ChooseYourGoalsNavigationType) {
+export default function ChooseYourGoals({ navigation, route }: ChooseYourGoalsNavigationType) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { login } = useAppSelector((state) => state);
+  const { password } = route.params;
+
+  const { login, user } = useAppSelector((state) => state);
   const { uid } = login;
 
-  const userFirebase = new UserFirebase();
+  const dispatch = useAppDispatch();
 
   const navigateNextScreen = async (item: ProgramsType) => {
-    const setDatabaseApi = await userFirebase.setDatabase(item.title, uid);
+    try {
+      dispatch(setGoal(item.title));
 
-    if (setDatabaseApi instanceof FirebaseError || !setDatabaseApi) {
-      return;
+      const result = await postUser({
+        ...user,
+        goal: item.title,
+        password: password,
+        passwordConfirmation: password,
+      });
+
+      if (result.status !== 200) throw result;
+
+      const resSession = await createSession(user.email ?? '', password);
+
+      if (resSession.status !== 200) throw resSession;
+
+      navigation.replace('WelcomingScreen');
+    } catch (error) {
+      toastError(error);
     }
-
-    navigation.replace('WelcomingScreen');
   };
 
   return (

@@ -2,12 +2,18 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 
+import { useAppDispatch } from '../../config/redux/app/hooks';
+
 import { SignupAndLoginStackType } from '../../utils/types/navigation';
 import { regexSimplePassword, regexValidateEmail } from '../../utils/functions/RegularExpression';
 import { toastError } from '../../utils/types/toastError';
 
 import SignUpTemplate from '../../components/templates/SignUpTemplate';
-import { postUser } from '../api/user';
+import {
+  setEmail,
+  setFirstName,
+  setLastName,
+} from '../../config/redux/features/user/userInformation';
 
 type SignupNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'SignupScreen'>;
 
@@ -22,7 +28,7 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
 
-  // const userFirebase = new UserFirebase();
+  const dispatch = useAppDispatch();
 
   const createOneButtonAlert = () =>
     Alert.alert('Please insert data in correct way', '', [
@@ -55,81 +61,33 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
       ]
     );
 
-  const handleFirstName = (value: string) => {
-    setFirstNameState(value);
-  };
-
-  const handleLastName = (value: string) => {
-    setLastNameState(value);
-  };
-
-  const handleEmail = (value: string) => {
-    setEmailState(value);
-  };
-
-  const handlePassword = (value: string) => {
-    setPassword(value);
-  };
-
-  const handleToggle = (value: boolean) => {
-    setIsCheck(value);
-  };
-
   const handleVisiblePassword = () => {
     setIsHidePassword(!isHidePassword);
   };
 
   const navigateNextScreen = async () => {
-    try {
-      if (!regexValidateEmail.test(emailState)) {
-        setIsEmailValid(false);
-        EmailAlert();
-        return;
-      }
-
-      if (!regexSimplePassword.test(password)) {
-        setIsPasswordValid(false);
-        passwordAlert();
-        return;
-      }
-
-      if (!isNotEmpty) {
-        createOneButtonAlert();
-        return;
-      }
-
-      const result = await postUser({
-        email: emailState,
-        password: password,
-        passwordConfirmation: password,
-        firstName: firstNameState,
-        lastName: lastNameState,
-      });
-
-      if (result.status !== 200) throw result;
-
-      console.log(result);
-
-      // const result = await userFirebase.signUpUser(emailState, password);
-
-      // if (result instanceof FirebaseError || !result) {
-      //   throw result;
-      // }
-
-      // const resultSetName = await userFirebase.setNameUser(
-      //   firstNameState,
-      //   lastNameState,
-      //   result.uid
-      // );
-
-      // if (resultSetName instanceof FirebaseError || !resultSetName) {
-      //   throw resultSetName;
-      // }
-
-      navigation.navigate('RegisterAccountData');
-    } catch (error) {
-      toastError(error);
+    if (!regexValidateEmail.test(emailState)) {
+      setIsEmailValid(false);
+      EmailAlert();
+      return;
     }
+
+    if (!regexSimplePassword.test(password)) {
+      setIsPasswordValid(false);
+      passwordAlert();
+      return;
+    }
+
+    if (!isNotEmpty) {
+      createOneButtonAlert();
+      return;
+    }
+
+    dispatch(setEmail(emailState));
+    dispatch(setFirstName(firstNameState));
+    dispatch(setLastName(lastNameState));
+
+    navigation.navigate('RegisterAccountData', { password });
   };
 
   const navigateToLogin = () => {
@@ -161,13 +119,13 @@ export default function SignupScreen({ navigation }: SignupNavigationType) {
     <SignUpTemplate
       firstName={firstNameState}
       lastName={lastNameState}
-      handleFirstName={handleFirstName}
-      handleLastName={handleLastName}
+      handleFirstName={setFirstNameState}
+      handleLastName={setLastNameState}
       emailState={emailState}
-      handleEmail={handleEmail}
+      handleEmail={setEmailState}
       isEmailValid={isEmailValid}
-      handlePassword={handlePassword}
-      handleToggle={handleToggle}
+      handlePassword={setPassword}
+      handleToggle={setIsCheck}
       isCheck={isCheck}
       isHidePassword={isHidePassword}
       isPasswordValid={isPasswordValid}

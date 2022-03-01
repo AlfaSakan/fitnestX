@@ -2,9 +2,12 @@ import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-naviga
 import React, { useCallback, useState } from 'react';
 import { MainStackNavigation, SignupAndLoginStackType } from '../../utils/types/navigation';
 import LoginTemplate from '../../components/templates/LoginTemplate';
-import UserFirebase from '../../config/firebase/userFirebase';
-import { FirebaseError } from 'firebase/app';
 import { useNavigation } from '@react-navigation/native';
+import { createSession } from '../api/session';
+import { getUser } from '../api/user';
+import { UserType } from '../../utils/types';
+import { setUserData } from '../../config/redux/features/user/userInformation';
+import { useAppDispatch } from '../../config/redux/app/hooks';
 
 type LoginNavigationType = NativeStackScreenProps<SignupAndLoginStackType, 'LoginScreen'>;
 type MainNavigationNavigationProp = NativeStackNavigationProp<
@@ -19,9 +22,9 @@ export default function LoginScreen({ navigation }: LoginNavigationType) {
   });
   const [isHide, setIsHide] = useState(true);
 
-  const mainNavigation = useNavigation<MainNavigationNavigationProp>();
+  const dispatch = useAppDispatch();
 
-  const userFirebase = new UserFirebase();
+  const mainNavigation = useNavigation<MainNavigationNavigationProp>();
 
   const onChangeInput = useCallback((value, type) => {
     setInputLogin((prev) => ({ ...prev, [type]: value }));
@@ -36,16 +39,21 @@ export default function LoginScreen({ navigation }: LoginNavigationType) {
   };
 
   const onPressLogin = async () => {
-    const resultLogin = await userFirebase.signInUser(
-      inputLogin.email.toLowerCase(),
-      inputLogin.password
-    );
+    try {
+      await createSession(inputLogin.email, inputLogin.password);
 
-    if (resultLogin instanceof FirebaseError || !resultLogin) {
-      return;
+      const user = await getUser();
+
+      if (!user) return;
+
+      const userData = user.result as UserType;
+
+      dispatch(setUserData(userData));
+
+      mainNavigation.navigate('BottomNavbarStackScreen', { screen: 'HomeTab' });
+    } catch (error) {
+      console.log(error);
     }
-
-    mainNavigation.navigate('BottomNavbarStackScreen', { screen: 'HomeTab' });
   };
 
   return (

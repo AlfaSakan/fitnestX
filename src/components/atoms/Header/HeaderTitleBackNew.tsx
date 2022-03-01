@@ -64,6 +64,6 @@ const styles = StyleSheet.create({
     // marginBottom: responsiveHeight(30),
     paddingHorizontal: responsiveWidth(30),
     paddingTop: responsiveHeight(40),
-    paddingBottom: responsiveHeight(30),
+    paddingBottom: responsiveHeight(15),
   },
 });

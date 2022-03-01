@@ -25,6 +25,7 @@ import { calculateAge } from '../../utils/functions/calculateAge';
 import ProfileSectionComponent from '../../components/molecules/ProfileComponent/ProfileSectionComponent';
 import NotificationSectionComponent from '../../components/molecules/ProfileComponent/NotificationSectionComponent';
 import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
+import { deleteSession } from '../api/session';
 
 type ProfileNavigationType = NativeStackScreenProps<HomeStackType, 'CongratulationScreen'>;
 type MainNavigationType = NativeStackScreenProps<MainStackNavigation, 'BottomNavbarStackScreen'>;
@@ -38,8 +39,12 @@ export default function ProfileScreen({ navigation }: MainNavigationType) {
   );
 
   const onPressLogOut = async () => {
-    await AsyncStorageLib.removeItem('user');
-    navigation.navigate('SignupAndLoginStackScreen', { screen: 'LoginScreen' });
+    try {
+      await deleteSession();
+      navigation.replace('SignupAndLoginStackScreen', { screen: 'LoginScreen' });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

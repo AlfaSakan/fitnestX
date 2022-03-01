@@ -13,7 +13,7 @@ import TypographyRegular from '../../atoms/Typography/TypographyRegular';
 
 const BodyMassIndex: React.FC<{bmi: Number}> = ({bmi}) => {
   return (
-    <ContentContainer backgroundColor={colors.blue1}>
+    <ContentContainer isShadow={false} backgroundColor={colors.blue1}>
       <FlexRowContainer>
         <View>
           <TypographyRegular

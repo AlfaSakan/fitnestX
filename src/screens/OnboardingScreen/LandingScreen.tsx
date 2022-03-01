@@ -3,12 +3,11 @@ import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-naviga
 import React, { useEffect } from 'react';
 import LandingTemplate from '../../components/templates/LandingTemplate';
 import { MainStackNavigation, OnboardingStackType } from '../../utils/types/navigation';
-import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import { colors } from '../../assets/colors';
-import { LoginType } from '../../utils/types/loginType';
 import { useAppDispatch } from '../../config/redux/app/hooks';
-import { setLoginDispatch } from '../../config/redux/features/login';
-import { setEmail } from '../../config/redux/features/user/userInformation';
+import { setUserData } from '../../config/redux/features/user/userInformation';
+import { getUser } from '../api/user';
+import { UserType } from '../../utils/types';
 
 type LandingScreenNavigation = NativeStackScreenProps<OnboardingStackType, 'LandingScreen'>;
 
@@ -22,37 +21,24 @@ const LandingScreen = ({ navigation }: LandingScreenNavigation) => {
 
   const dispatch = useAppDispatch();
 
-  // const userFirebase = new UserFirebase();
-
   useEffect(() => {
     setTimeout(async () => {
       try {
-        const userDataStorage = await AsyncStorageLib.getItem('user');
-        if (userDataStorage) {
-          const dataStorage = JSON.parse(userDataStorage) as LoginType;
+        const user = await getUser();
 
-          dispatch(setEmail(dataStorage.email));
-          dispatch(setLoginDispatch(dataStorage));
-
-          // const checkingDataUser = await userFirebase.getDatabase(dataStorage.uid);
-
-          // if (checkingDataUser instanceof FirebaseError || !checkingDataUser) {
-          //   navigation.replace('GetStarted');
-          //   return;
-          // }
-
-          // if (!checkingDataUser.goal) {
-          //   mainNavigate.navigate('SignupAndLoginStackScreen', { screen: 'RegisterAccountData' });
-          //   return;
-          // }
-
-          mainNavigate.replace('BottomNavbarStackScreen', { screen: 'HomeTab' });
+        if (!user) {
+          navigation.replace('GetStarted');
           return;
         }
 
-        navigation.replace('GetStarted');
+        const userData = user.result as UserType;
+
+        dispatch(setUserData(userData));
+
+        mainNavigate.replace('BottomNavbarStackScreen', { screen: 'HomeTab' });
       } catch (error) {
         console.log(error);
+        navigation.replace('GetStarted');
       }
     }, 5000);
   }, []);

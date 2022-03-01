@@ -36,6 +36,7 @@ const ButtonCheck: React.FC<ButtonCheckType> = ({
   borderRadius,
   image = null,
   paddingVertical = 8,
+  ...props
 }) => {
   return (
     <TouchableOpacity onPress={onPress}>
@@ -64,6 +65,7 @@ const ButtonCheck: React.FC<ButtonCheckType> = ({
           fontSize={fontSize.smallText}
           lineHeight={lineHeight.smallText}
           color={color}
+          {...props}
         />
         {/* {image ? <Image style={styles.image} source={image} /> : null} */}
         {image}

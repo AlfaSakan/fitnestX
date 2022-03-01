@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   body: {
-    paddingTop: responsiveHeight(Platform.OS === 'android' ? 10 : 0),
+    paddingTop: responsiveHeight(Platform.OS === 'android' ? 10 : 15),
     paddingBottom: responsiveHeight(60),
   },
 });

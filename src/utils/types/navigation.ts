@@ -21,9 +21,13 @@ export type BottomNavbarStackType = {
 };
 
 export type SignupAndLoginStackType = {
-  RegisterAccountData: undefined;
+  RegisterAccountData: {
+    password: string;
+  };
   LoginScreen: undefined;
-  ChooseYourGoals: undefined;
+  ChooseYourGoals: {
+    password: string;
+  };
   SignupScreen: undefined;
   WelcomingScreen: undefined;
 };

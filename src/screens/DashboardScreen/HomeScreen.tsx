@@ -22,15 +22,45 @@ import TypographyRegular from '../../components/atoms/Typography/TypographyRegul
 import WaterInTake from '../../components/molecules/HomeComponent/WaterInTake';
 import HistoryWorkoutCard from '../../components/molecules/CardProgram/HistoryWorkoutCard';
 import BodyMassIndex from '../../components/molecules/HomeComponent/BodyMassIndex';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import { useLoad } from '../../config/LoaderContext/LoaderContext';
+import { getActivity } from '../api/activity';
 
 type HomeNavigationType = NativeStackScreenProps<MainStackNavigation, 'BottomNavbarStackScreen'>;
 
+export interface ActivitiesDocument {
+  typeActivity: string;
+  waterInMiliLiter: number;
+  time: number;
+  _id: string;
+}
+
 export default function HomeScreen({ navigation }: HomeNavigationType) {
   const [bmiCalc, setBmiCalc] = useState(0);
+  const [waterInTake, setWaterIntake] = useState<ActivitiesDocument[]>([]);
+
   const { firstName, lastName, weight, height } = useAppSelector((state) => state.user);
+
+  const { dispatch } = useLoad();
+
+  const hitAPIActivity = async () => {
+    try {
+      dispatch({ type: 'loading' });
+
+      const res = await getActivity();
+      const { waterProgress } = res.result;
+      setWaterIntake(waterProgress);
+
+      dispatch({ type: 'loaded' });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: 'loaded' });
+    }
+  };
 
   useEffect(() => {
     setBmiCalc(weight / Math.pow(height / 100, 2));
+    hitAPIActivity();
   }, []);
 
   const navigateToNotif = () => {
@@ -95,7 +125,7 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
           <Margin margin={16} />
           <View style={styles.headerContainer}>
             <View style={styles.waterIntakeContainer}>
-              <WaterInTake />
+              <WaterInTake data={waterInTake} />
             </View>
             <View>
               <View style={styles.squareContainer}>
