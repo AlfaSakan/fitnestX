@@ -25,6 +25,7 @@ import BodyMassIndex from '../../components/molecules/HomeComponent/BodyMassInde
 
 import { getActivity } from '../api/activity';
 import { useIsFocused } from '@react-navigation/native';
+import { getListByBodypart, getListOfBodyparts } from '../api/exercise';
 
 type HomeNavigationType = NativeStackScreenProps<MainStackNavigation, 'BottomNavbarStackScreen'>;
 
@@ -61,7 +62,15 @@ export default function HomeScreen({ navigation }: HomeNavigationType) {
   };
 
   const navigateToNotif = () => {
-    navigation.navigate('HomeStackScreen', { screen: 'NotificationScreen' });
+    // navigation.navigate('HomeStackScreen', { screen: 'NotificationScreen' });
+    testHitApi();
+  };
+
+  const testHitApi = async () => {
+    // const result = await getListOfBodyparts();
+    const result = await getListByBodypart('back');
+
+    console.log(result);
   };
 
   useEffect(() => {

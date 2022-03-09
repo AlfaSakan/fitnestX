@@ -280,13 +280,13 @@ export default function ActivityTrackerScreen({ navigation }: ActivityTrackerNav
         <Margin margin={30} />
         <View style={styles.displayFlex}>
           <TypographyRegular text="Activity Progress" />
-          <ButtonCheck
+          {/* <ButtonCheck
             buttonColor={colors.blueLinear}
             borderRadius={50}
             text="Weekly"
             color={colors.white}
             image={<ArrowDown2Icon colorIcon={colors.white} />}
-          />
+          /> */}
         </View>
         <Margin margin={15} />
         <View style={styles.activityGraph}>

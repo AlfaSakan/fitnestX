@@ -18,3 +18,18 @@ export default async function (endPoint: string, method: string, input?: object)
 
   return { result: data, status: res.status };
 }
+
+export const fetchApiExercise = async (endPoint: string, method: string, headers?: object) => {
+  const res = await fetch(endPoint, {
+    method: method,
+    headers: {
+      ...headers,
+    },
+  });
+
+  console.log(res);
+
+  const data = await res.json();
+
+  return data;
+};

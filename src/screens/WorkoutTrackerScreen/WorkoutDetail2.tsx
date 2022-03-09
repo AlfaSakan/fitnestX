@@ -17,6 +17,7 @@ import TypographyRegular from '../../components/atoms/Typography/TypographyRegul
 
 import { WorkoutStackType } from '../../utils/types/navigation';
 import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
+import BaseContainerWithHeader from '../../components/organisms/BaseContainerWithHeader';
 
 const exerciseSteps = [
   {
@@ -47,129 +48,122 @@ export default function WorkoutDetail2({ navigation, route }: WorkoutDetail2Navi
   const { data } = route.params;
 
   return (
-    <BaseContainer>
-      <ScrollView>
-        <HeaderTitleBack
-          imageLeft={<CloseIcon colorIcon={colors.black} />}
-          title=""
-          onPressBack={() => navigation.goBack()}
+    <BaseContainerWithHeader navigation={navigation} title="">
+      <View style={styles.bodyContainer}>
+        <TypographyRegular
+          text={data.name}
+          fontFamily={fontFamily.semiBold}
+          fontSize={fontSize.largeText}
+          lineHeight={lineHeight.largeText}
         />
-        <View style={styles.bodyContainer}>
-          <TypographyRegular
-            text={data.name}
-            fontFamily={fontFamily.semiBold}
-            fontSize={fontSize.largeText}
-            lineHeight={lineHeight.largeText}
-          />
-          <TypographyRegular
-            text={`${data.difficulty} | ${data.calories} Calories Burn`}
-            fontSize={fontSize.smallText}
-            lineHeight={lineHeight.smallText}
-            color={colors.gray1}
-          />
-          <Margin margin={30} />
-          <TypographyRegular
-            text="Description"
-            fontFamily={fontFamily.semiBold}
-            fontSize={fontSize.largeText}
-            lineHeight={lineHeight.largeText}
-          />
+        <TypographyRegular
+          text={`${data.difficulty} | ${data.calories} Calories Burn`}
+          fontSize={fontSize.smallText}
+          lineHeight={lineHeight.smallText}
+          color={colors.gray1}
+        />
+        <Margin margin={30} />
+        <TypographyRegular
+          text="Description"
+          fontFamily={fontFamily.semiBold}
+          fontSize={fontSize.largeText}
+          lineHeight={lineHeight.largeText}
+        />
+        <Margin margin={15} />
+        <TypographyRegular
+          text={`${data.description}`}
+          fontSize={fontSize.smallText}
+          lineHeight={lineHeight.smallText}
+          color={colors.gray1}
+        />
+        <Margin margin={30} />
+        <View>
+          <FlexRowContainer>
+            <TypographyRegular
+              text="How To Do It"
+              fontFamily={fontFamily.semiBold}
+              fontSize={fontSize.largeText}
+              lineHeight={lineHeight.largeText}
+            />
+            <TypographyRegular
+              text={`${exerciseSteps.length} Steps`}
+              fontSize={fontSize.smallText}
+              lineHeight={lineHeight.smallText}
+              color={colors.gray1}
+            />
+          </FlexRowContainer>
           <Margin margin={15} />
-          <TypographyRegular
-            text={`${data.description}`}
-            fontSize={fontSize.smallText}
-            lineHeight={lineHeight.smallText}
-            color={colors.gray1}
-          />
-          <Margin margin={30} />
-          <View>
-            <FlexRowContainer>
-              <TypographyRegular
-                text="How To Do It"
-                fontFamily={fontFamily.semiBold}
-                fontSize={fontSize.largeText}
-                lineHeight={lineHeight.largeText}
-              />
-              <TypographyRegular
-                text={`${exerciseSteps.length} Steps`}
-                fontSize={fontSize.smallText}
-                lineHeight={lineHeight.smallText}
-                color={colors.gray1}
-              />
-            </FlexRowContainer>
-            <Margin margin={15} />
-            {exerciseSteps.map((step, index) => {
-              return (
-                <View key={index} style={{ height: responsiveHeight(98) }}>
-                  <FlexRowContainer alignItems="flex-start">
-                    <View style={{ width: 20 }}>
-                      <TypographyGradient color={colors.blueLinear}>
-                        <TypographyRegular
-                          text={`0${index + 1}`}
-                          fontSize={fontSize.mediumText}
-                          lineHeight={lineHeight.mediumText}
-                        />
-                      </TypographyGradient>
-                    </View>
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        marginRight: 15,
-                        marginLeft: 5,
-                      }}
-                    >
-                      <CircleGradientIcon />
-                      {!(index === exerciseSteps.length - 1) && (
-                        <LinearGradient
-                          colors={colors.purpleLinear}
-                          style={{ height: '90%', borderRightWidth: 1 }}
-                        />
-                      )}
-                    </View>
-                    <View style={{ width: '90%' }}>
+          {exerciseSteps.map((step, index) => {
+            return (
+              <View key={index} style={{ height: responsiveHeight(98) }}>
+                <FlexRowContainer alignItems="flex-start">
+                  <View style={{ width: 20 }}>
+                    <TypographyGradient color={colors.blueLinear}>
                       <TypographyRegular
-                        text={step.title}
+                        text={`0${index + 1}`}
                         fontSize={fontSize.mediumText}
                         lineHeight={lineHeight.mediumText}
                       />
-                      <TypographyRegular
-                        text={step.description}
-                        fontSize={fontSize.smallText}
-                        lineHeight={lineHeight.smallText}
-                        color={colors.gray1}
+                    </TypographyGradient>
+                  </View>
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      marginRight: 15,
+                      marginLeft: 5,
+                    }}
+                  >
+                    <CircleGradientIcon />
+                    {!(index === exerciseSteps.length - 1) && (
+                      <LinearGradient
+                        colors={colors.purpleLinear}
+                        style={{ height: '90%', borderRightWidth: 1 }}
                       />
-                    </View>
-                  </FlexRowContainer>
-                </View>
-              );
-            })}
-          </View>
-          <TypographyRegular
-            text="Custom Repetitions"
-            fontFamily={fontFamily.semiBold}
-            fontSize={fontSize.largeText}
-            lineHeight={lineHeight.largeText}
-          />
-          <Margin margin={30} />
-          <ButtonLargeGradient
-            text="Get Started"
-            // onPress={navigateNextScreen}
-            // position="absolute"
-            // bottom={responsiveHeight(40)}
-            onPress={() => {}}
-            color={colors.white}
-            buttonColor={colors.blueLinear}
-          />
+                    )}
+                  </View>
+                  <View style={{ width: '90%' }}>
+                    <TypographyRegular
+                      text={step.title}
+                      fontSize={fontSize.mediumText}
+                      lineHeight={lineHeight.mediumText}
+                    />
+                    <TypographyRegular
+                      text={step.description}
+                      fontSize={fontSize.smallText}
+                      lineHeight={lineHeight.smallText}
+                      color={colors.gray1}
+                    />
+                  </View>
+                </FlexRowContainer>
+              </View>
+            );
+          })}
         </View>
-      </ScrollView>
-    </BaseContainer>
+        {/* <TypographyRegular
+          text="Custom Repetitions"
+          fontFamily={fontFamily.semiBold}
+          fontSize={fontSize.largeText}
+          lineHeight={lineHeight.largeText}
+        /> */}
+        {/* <Margin margin={30} /> */}
+        <ButtonLargeGradient
+          text="Save"
+          // onPress={navigateNextScreen}
+          // position="absolute"
+          // bottom={responsiveHeight(40)}
+          onPress={() => {}}
+          color={colors.white}
+          buttonColor={colors.blueLinear}
+        />
+      </View>
+    </BaseContainerWithHeader>
   );
 }
 
 const styles = StyleSheet.create({
   bodyContainer: {
     paddingHorizontal: responsiveWidth(30),
-    paddingBottom: responsiveHeight(30),
+    // paddingBottom: responsiveHeight(30),
   },
   dotGradient: {
     // width: 20,
