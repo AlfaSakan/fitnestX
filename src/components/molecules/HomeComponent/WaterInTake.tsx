@@ -48,49 +48,48 @@ const WaterInTake: React.FC<WaterInTakeInterface> = ({ data = [], target = 8 }) 
           fontSize={fontSize.caption}
           lineHeight={lineHeight.caption}
         />
-        {data.map((inTake, index) => {
-          const date = new Date(inTake.time);
-          if (date.getDate() !== new Date().getDate()) return;
+        {data
+          .sort((a, b) => a.time - b.time)
+          .map((inTake, index) => {
+            const date = new Date(inTake.time);
+            if (date.getDate() !== new Date().getDate()) return;
 
-          const time = moment(inTake.time).format('ha');
+            const time = moment(inTake.time).format('ha');
 
-          if (index > 0) {
-            const prevTime = moment(data[index - 1].time).format('ha');
-            if (time === prevTime) return;
-          }
-
-          if (index < data.length) {
-            let i = index + 1;
-            let nextTime = moment(data[i].time).format('ha');
-
-            while (nextTime === time) {
-              inTake.waterInMiliLiter = inTake.waterInMiliLiter + data[i].waterInMiliLiter;
-              i++;
-              nextTime = moment(data[i].time).format('ha');
+            if (index > 0) {
+              const prevTime = moment(data[index - 1].time).format('ha');
+              if (time === prevTime) return;
             }
-          }
 
-          return (
-            <View key={index} style={{ flexDirection: 'row', flex: 1, alignItems: 'flex-start' }}>
-              <View
-                style={{ alignItems: 'center', justifyContent: 'space-between', paddingTop: 3 }}
-              >
-                <View style={styles.dot} />
-                <View style={styles.line} />
+            let waterInMiliLiter = inTake.waterInMiliLiter;
+
+            for (let i = index + 1; i <= data.length - 1; i++) {
+              let nextTime = moment(data[i].time).format('ha');
+              if (nextTime !== time) break;
+              waterInMiliLiter += data[i].waterInMiliLiter;
+            }
+
+            return (
+              <View key={index} style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                <View
+                  style={{ alignItems: 'center', justifyContent: 'space-between', paddingTop: 3 }}
+                >
+                  <View style={styles.dot} />
+                  <View style={styles.line} />
+                </View>
+                <View style={{ marginLeft: 8 }}>
+                  <TypographyRegular
+                    text={`${time}`}
+                    fontSize={fontSize.belowCaption}
+                    lineHeight={lineHeight.belowCaption}
+                  />
+                  <TypographyGradient color={colors.purpleLinear} style={styles.inTakeText}>
+                    {`${waterInMiliLiter}ml`}
+                  </TypographyGradient>
+                </View>
               </View>
-              <View style={{ marginLeft: 8 }}>
-                <TypographyRegular
-                  text={`${time}`}
-                  fontSize={fontSize.belowCaption}
-                  lineHeight={lineHeight.belowCaption}
-                />
-                <TypographyGradient color={colors.purpleLinear} style={styles.inTakeText}>
-                  {`${inTake.waterInMiliLiter}ml`}
-                </TypographyGradient>
-              </View>
-            </View>
-          );
-        })}
+            );
+          })}
       </View>
     </View>
   );

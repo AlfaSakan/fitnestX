@@ -18,6 +18,7 @@ export default function OnboardingScreen4({ navigation }: MainNavigationType) {
       textTitle="Improve Sleep Quality"
       textBody="Improve the quality of your sleep with us, good quality sleep can bring a good mood in the morning."
       onPress={footerOnPress}
+      testID="button next4"
     />
   );
 }

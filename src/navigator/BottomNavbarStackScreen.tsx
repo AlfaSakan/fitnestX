@@ -36,7 +36,7 @@ export default function BottomNavbarStackScreen({}) {
           switch (rn) {
             case 'HomeTab':
               return focused ? (
-                <DotBottomNavbar>
+                <DotBottomNavbar testID="home tab">
                   <HomeGradientIcon width={size} height={size} />
                 </DotBottomNavbar>
               ) : (
@@ -44,7 +44,7 @@ export default function BottomNavbarStackScreen({}) {
               );
             case 'ProfileTab':
               return focused ? (
-                <DotBottomNavbar>
+                <DotBottomNavbar testID="profile tab">
                   <ProfileGradientIcon width={size} height={size} />
                 </DotBottomNavbar>
               ) : (
@@ -87,13 +87,14 @@ export default function BottomNavbarStackScreen({}) {
   );
 }
 
-interface DotBottomNavbar {
+interface DotBottomNavbarProps {
   children: React.ReactNode;
+  testID?: string;
 }
 
-const DotBottomNavbar: React.FC<DotBottomNavbar> = ({ children }) => {
+const DotBottomNavbar: React.FC<DotBottomNavbarProps> = ({ children, testID }) => {
   return (
-    <View style={styles.dotContainer}>
+    <View testID={testID} style={styles.dotContainer}>
       {children}
       <LinearGradient colors={colors.purpleLinear} style={styles.dotStyle} />
     </View>

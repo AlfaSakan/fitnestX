@@ -4,6 +4,7 @@ import { OnboardingStackType } from '../../utils/types/navigation';
 import LandingTemplate from '../../components/templates/LandingTemplate';
 
 import { getUser } from '../api/user';
+import fetchApi from '../../service/fetchApi';
 
 type GetStartedNavigationType = NativeStackScreenProps<OnboardingStackType, 'GetStarted'>;
 

@@ -18,6 +18,7 @@ export default function OnboardingScreen2({ navigation }: OnboardingNavigationTy
       textTitle="Get Burn"
       textBody="Let's keep burning, to achive yours goals, it hurts only temporarily, if you give up now you will be in pain forever."
       onPress={footerOnPress}
+      testID="button next2"
     />
   );
 }

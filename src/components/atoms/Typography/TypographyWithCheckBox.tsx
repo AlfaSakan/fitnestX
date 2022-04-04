@@ -16,6 +16,7 @@ interface TypographyWithCheckBoxType {
   color?: string;
   style?: {};
   text?: string;
+  testID?: string;
 }
 
 const TypographyWithCheckBox: React.FC<TypographyWithCheckBoxType> = React.memo(
@@ -28,6 +29,7 @@ const TypographyWithCheckBox: React.FC<TypographyWithCheckBoxType> = React.memo(
     color = colors.gray2,
     style = {},
     text = `By continuing you accept our <u>Privacy Policy</u> and <u>Term of Use</u>`,
+    testID,
   }) {
     const textStyle = {
       fontFamily: propFontFamily,
@@ -46,6 +48,7 @@ const TypographyWithCheckBox: React.FC<TypographyWithCheckBoxType> = React.memo(
           value={toggleValue}
           onValueChange={onValueChange}
           style={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }] }}
+          testID={testID}
         />
         <Text style={styles.textStyle}>
           By continuing you accept our{' '}

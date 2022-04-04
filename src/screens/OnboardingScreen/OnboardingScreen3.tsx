@@ -18,6 +18,7 @@ const OnboardingScreen3 = ({ navigation }: OnboardingNavigationType) => {
       textTitle="Eat Well"
       textBody="Let's start a healthy lifestyle with us, we can determine your diet every day. Healthy eating is fun."
       onPress={footerOnPress}
+      testID="button next3"
     />
   );
 };

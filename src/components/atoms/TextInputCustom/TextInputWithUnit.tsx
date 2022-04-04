@@ -19,6 +19,7 @@ interface TextInputWithUnitType {
   gradientColor?: string[];
   maxLength?: number;
   unit?: string;
+  testID?: string;
 }
 
 const TextInputWithUnit: React.FC<TextInputWithUnitType> = ({
@@ -35,6 +36,7 @@ const TextInputWithUnit: React.FC<TextInputWithUnitType> = ({
   unit = 'cm',
   gradientColor = colors.purpleLinear,
   maxLength = 100,
+  testID,
 }) => {
   return (
     <View style={styles.unitContainer}>
@@ -65,6 +67,7 @@ const TextInputWithUnit: React.FC<TextInputWithUnitType> = ({
           onChangeText={onChangeText}
           secureTextEntry={isHide}
           maxLength={maxLength}
+          testID={testID}
         />
       </View>
       <ButtonSquareGradient

@@ -13,6 +13,7 @@ interface TextInputDropdownType {
   onPress(): void;
   isDropdown?: boolean;
   placeholder: string;
+  testID?: string;
 }
 
 const TextInputDropdown: React.FC<TextInputDropdownType> = ({
@@ -22,9 +23,10 @@ const TextInputDropdown: React.FC<TextInputDropdownType> = ({
   onPress,
   isDropdown = false,
   placeholder = '',
+  testID,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} testID={testID}>
       <View style={[styles.container, { backgroundColor }]}>
         <View style={{ flexDirection: 'row' }}>
           {/* <Image style={styles.image1} source={image} /> */}

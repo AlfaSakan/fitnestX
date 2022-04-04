@@ -16,8 +16,16 @@ import TypographyRegular from '../../components/atoms/Typography/TypographyRegul
 import { MainStackNavigation } from '../../utils/types/navigation';
 import { responsiveHeight, responsiveWidth } from '../../utils/functions/responsiveDimension';
 
-import { listWorkout, upcomingData, workoutTrackerType } from '../../utils/functions/datadummies';
+import {
+  ExerciseInterface,
+  listWorkout,
+  responseExercises,
+  upcomingData,
+  workoutTrackerType,
+} from '../../utils/functions/datadummies';
 import BaseContainerWithHeader from '../../components/organisms/BaseContainerWithHeader';
+import { getAllExercises, getExerciseByCategory } from '../api/exercisePublic';
+import { useLoad } from '../../config/LoaderContext/LoaderContext';
 
 type WorkoutTrackerNavigationType = NativeStackScreenProps<
   MainStackNavigation,
@@ -31,15 +39,40 @@ export default function WorkoutTracker({ navigation, route }: WorkoutTrackerNavi
     'AB Workout': false,
   });
 
+  const { dispatch } = useLoad();
+
   const toggleSwitch = (value: boolean, name: string) => {
     setIsActive((prev) => ({ ...prev, [name]: value }));
   };
 
   const navigateDetailScreen = (data: workoutTrackerType) => {
-    navigation.navigate('WorkoutTrackerStackScreen', {
-      screen: 'WorkoutDetail1',
-      params: { data },
-    });
+    // workoutTypeFunc(8)
+    // navigation.navigate('WorkoutTrackerStackScreen', {
+    //   screen: 'WorkoutDetail1',
+    //   params: { data },
+    // });
+  };
+
+  const testGetExercise = async () => {
+    const res = await getAllExercises();
+    console.log('RES:', res);
+  };
+
+  const workoutTypeFunc = (category: number | string, name: string, limit?: number) => async () => {
+    try {
+      dispatch({ type: 'loading' });
+      const response = (await getExerciseByCategory(category, limit)) as responseExercises;
+
+      navigation.navigate('WorkoutTrackerStackScreen', {
+        screen: 'WorkoutDetail1',
+        params: { data: response.results, name },
+      });
+
+      dispatch({ type: 'loaded' });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: 'loaded' });
+    }
   };
 
   return (
@@ -59,6 +92,7 @@ export default function WorkoutTracker({ navigation, route }: WorkoutTrackerNavi
               borderRadius={responsiveHeight(24)}
               color={colors.white}
               onPress={() => {}}
+              // onPress={testGetExercise}
               width={80}
             />
           </FlexRowContainer>
@@ -135,20 +169,24 @@ export default function WorkoutTracker({ navigation, route }: WorkoutTrackerNavi
             lineHeight={lineHeight.largeText}
           />
           {listWorkout.map((item, index) => {
-            let imageWorkout;
+            let imageWorkout, categoryWorkout;
 
             switch (item.name) {
               case 'Fullbody Workout':
                 imageWorkout = <FullbodyWorkoutImage />;
+                categoryWorkout = '8,9,10,11,12,13,14';
                 break;
               case 'Upperbody Workout':
                 imageWorkout = <UpperbodyWorkoutImage />;
+                categoryWorkout = '11,12,13';
                 break;
               case 'AB Workout':
                 imageWorkout = <AbWorkoutImage />;
+                categoryWorkout = 10;
                 break;
               default:
                 imageWorkout = <FullbodyWorkoutImage />;
+                categoryWorkout = 11;
                 break;
             }
 
@@ -175,7 +213,8 @@ export default function WorkoutTracker({ navigation, route }: WorkoutTrackerNavi
                       <ButtonRegular
                         text="View more"
                         // borderRadius={responsiveHeight(24)}
-                        onPress={() => navigateDetailScreen(item)}
+                        // onPress={() => navigateDetailScreen(item)}
+                        onPress={workoutTypeFunc(categoryWorkout, item.name)}
                         width={100}
                       />
                     </View>

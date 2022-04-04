@@ -89,6 +89,7 @@ const RegisterAccountTemplate: React.FC<Props> = ({
             image={<CalendarIcon />}
             placeholder="Date of Birth"
             onPress={onOpenCalendar}
+            testID="date input"
           />
           <TextInputWithUnit
             placeholder="Your Weight"
@@ -97,6 +98,7 @@ const RegisterAccountTemplate: React.FC<Props> = ({
             unit="KG"
             onChangeText={handleWeight}
             maxLength={3}
+            testID="weight"
           />
           <TextInputWithUnit
             placeholder="Your Height"
@@ -105,6 +107,7 @@ const RegisterAccountTemplate: React.FC<Props> = ({
             image={<SwapIcon />}
             unit="CM"
             maxLength={3}
+            testID="height"
           />
           <Margin margin={30} />
           <ButtonLargeGradient
@@ -124,6 +127,7 @@ const RegisterAccountTemplate: React.FC<Props> = ({
         onConfirm={onConfirmDatePicker}
         onCancel={onCancelDatePicker}
         onDateChange={onDateChange}
+        testID="datePicker"
       />
       <Modal
         visible={isDropdownGender}

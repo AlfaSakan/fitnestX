@@ -1,28 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import { colors } from '../../../assets/colors';
+import { images } from '../../../assets/images';
 import { ArrowRightCircleIcon } from '../../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../../assets/Typography';
-import { workoutType } from '../../../screens/WorkoutTrackerScreen/WorkoutDetail1';
+import { getImageApi } from '../../../screens/api/exercisePublic';
+import { ExerciseInterface, ImageInterface } from '../../../utils/functions/datadummies';
 import { responsiveHeight, responsiveWidth } from '../../../utils/functions/responsiveDimension';
 import FlexRowContainer from '../../atoms/Container/FlexRowContainer';
 import Margin from '../../atoms/Margin/Margin';
 import TypographyRegular from '../../atoms/Typography/TypographyRegular';
 
 interface ExerciseBoxType {
-  item: workoutType;
+  item: ExerciseInterface;
   onPress: () => void;
-  index: number;
 }
 
 const { width } = Dimensions.get('screen');
 
-const ExerciseBox: React.FC<ExerciseBoxType> = ({ item, onPress, index }) => {
+const ExerciseBox: React.FC<ExerciseBoxType> = ({ item, onPress }) => {
+  const [image, setImage] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const results = (await getImageApi(item.exercise_base)) as ImageInterface[];
+
+        if (results.length === 0) return;
+        setImage(results[0].image);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
   return (
     <TouchableOpacity onPress={onPress}>
       <FlexRowContainer>
         <View style={styles.displayFlex}>
-          <Image style={styles.imageExerciseBox} source={item.image} />
+          <Image
+            style={styles.imageExerciseBox}
+            source={image ? { uri: image } : images.vectorExercises}
+            resizeMode="contain"
+          />
           <View style={styles.marginLeft}>
             <TypographyRegular
               text={item.name}
@@ -31,7 +51,8 @@ const ExerciseBox: React.FC<ExerciseBoxType> = ({ item, onPress, index }) => {
               lineHeight={lineHeight.mediumText}
             />
             <TypographyRegular
-              text={item.repetition ? `${item.repetition}x` : item.time}
+              // text={item.repetition ? `${item.repetition}x` : item.time}
+              text="10"
               fontFamily={fontFamily.medium}
               fontSize={fontSize.smallText}
               lineHeight={lineHeight.smallText}

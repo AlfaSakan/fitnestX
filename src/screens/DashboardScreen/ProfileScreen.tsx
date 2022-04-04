@@ -1,18 +1,14 @@
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/images';
-import { ArrowRight2Icon } from '../../assets/Images/svg';
 import { fontFamily, fontSize, lineHeight } from '../../assets/Typography';
 
 import HeaderTitleBack from '../../components/atoms/Header/HeaderTitleBack';
 import Margin from '../../components/atoms/Margin/Margin';
 import ProfilePicture from '../../components/molecules/ProfilePicture/ProfilePicture';
-import TypographyGradient from '../../components/atoms/Typography/TypographyGradient';
 import TypographyRegular from '../../components/atoms/Typography/TypographyRegular';
 
 import { HomeStackType, MainStackNavigation } from '../../utils/types/navigation';
@@ -26,6 +22,7 @@ import ProfileSectionComponent from '../../components/molecules/ProfileComponent
 import NotificationSectionComponent from '../../components/molecules/ProfileComponent/NotificationSectionComponent';
 import ButtonLargeGradient from '../../components/atoms/Button/ButtonLargeGradient';
 import { deleteSession } from '../api/session';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 type ProfileNavigationType = NativeStackScreenProps<HomeStackType, 'CongratulationScreen'>;
 type MainNavigationType = NativeStackScreenProps<MainStackNavigation, 'BottomNavbarStackScreen'>;
@@ -42,6 +39,8 @@ export default function ProfileScreen({ navigation }: MainNavigationType) {
     try {
       await deleteSession();
       navigation.replace('SignupAndLoginStackScreen', { screen: 'LoginScreen' });
+      // const accessToken = (await AsyncStorageLib.getItem('accessToken')) || '';
+      // console.log(accessToken);
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +54,7 @@ export default function ProfileScreen({ navigation }: MainNavigationType) {
   return (
     <View style={styles.container}>
       <HeaderTitleBack title="Profile" />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} testID="scroll profile">
         <View style={styles.paddingStyle}>
           <ProfilePicture
             image={images.drinkImage}

@@ -1,5 +1,5 @@
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
-import fetchApi from '../../service/fetchApi';
+import fetchApi, { fetchApiExercise } from '../../service/fetchApi';
 
 const host = process.env.HOST;
 const port = process.env.PORT;
@@ -20,8 +20,10 @@ export const updateSession = async () => {
 };
 
 export const deleteSession = async () => {
+  const res = await fetchApi(endPoint, 'DELETE');
+
   await AsyncStorageLib.removeItem('refreshToken');
   await AsyncStorageLib.removeItem('accessToken');
 
-  return await fetchApi(endPoint, 'DELETE');
+  return res;
 };

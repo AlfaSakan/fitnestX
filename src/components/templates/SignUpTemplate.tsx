@@ -78,12 +78,14 @@ const SignUpTemplate: React.FC<SignUpProps> = ({
           placeholder="First Name"
           value={firstName}
           onChangeText={handleFirstName}
+          testID="first name"
         />
         <TextInputCustom
           image={<ProfileIcon />}
           placeholder="Last Name"
           value={lastName}
           onChangeText={handleLastName}
+          testID="last name"
         />
         <TextInputCustom
           image={<MessageIcon />}
@@ -91,6 +93,7 @@ const SignUpTemplate: React.FC<SignUpProps> = ({
           value={emailState}
           onChangeText={handleEmail}
           isValid={isEmailValid}
+          testID="email"
         />
         <TextInputCustom
           image={<LockIcon />}
@@ -101,11 +104,13 @@ const SignUpTemplate: React.FC<SignUpProps> = ({
           onChangeText={handlePassword}
           onPressEye={handleVisiblePassword}
           isValid={isPasswordValid}
+          testID="password"
         />
         <TypographyWithCheckBox
           toggleValue={isCheck}
           onValueChange={handleToggle}
           propFontSize={fontSize.largeText}
+          testID="checkbox"
         />
         <Margin margin={147} />
         <ButtonLargeGradient

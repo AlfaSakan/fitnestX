@@ -20,6 +20,7 @@ export default function OnboardingScreen1({ navigation }: OnboardingNavigationTy
       textTitle="Track Your Goal"
       textBody="Don't worry if you have trouble determining your goal, We can help you determine your goals and track your goals."
       onPress={footerOnPress}
+      testID="button next1"
     />
   );
 }

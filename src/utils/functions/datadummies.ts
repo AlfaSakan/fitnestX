@@ -215,3 +215,38 @@ export const listWorkout: workoutTrackerType[] = [
     listExercise: dataExercises,
   },
 ];
+
+export interface responseExercises {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: ExerciseInterface[];
+}
+
+export interface ExerciseInterface {
+  category: number;
+  creation_date: Date;
+  description: string;
+  equipment: number[];
+  exercise_base: number;
+  id: number;
+  language: number;
+  license: number;
+  license_author: string;
+  muscles: number[];
+  muscles_secondary: number[];
+  name: string;
+  status: string;
+  uuid: string;
+  variations: number[];
+}
+
+export interface ImageInterface {
+  id: number;
+  uuid: string;
+  exercise_base: number;
+  image: string;
+  is_main: boolean;
+  status: string;
+  style: string;
+}

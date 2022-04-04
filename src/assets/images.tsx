@@ -38,6 +38,13 @@ export const images = {
   alarmIcon: require('./Images/alarm.png'),
   bedIcon: require('./Images/bed.png'),
   starSleep: require('./Images/starSleep.png'),
+  kettleBell: require('./Images/kettleBell.png'),
+  szBar: require('./Images/szBar.png'),
+  gymMat: require('./Images/gymMat.png'),
+  swissBall: require('./Images/swissBall.jpg'),
+  pullUpBar: require('./Images/pullUpBar.jpeg'),
+  inclineBench: require('./Images/inclineBench.jpeg'),
+  bench: require('./Images/bench.webp'),
   // GRADIENT
   profileGradient: require('./Images/gradient/profileGradient.png'),
   achievementGradient: require('./Images/gradient/achievementGradient.png'),

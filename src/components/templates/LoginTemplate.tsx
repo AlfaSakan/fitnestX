@@ -57,6 +57,7 @@ const LoginTemplate: React.FC<Props> = ({
           image={<MessageIcon />}
           value={email}
           onChangeText={(value) => onChangeInput(value, 'email')}
+          testID="email"
         />
         <TextInputCustom
           placeholder="Password"
@@ -66,6 +67,7 @@ const LoginTemplate: React.FC<Props> = ({
           isPassword={true}
           isHide={isHide}
           onPressEye={handleIsHidePassword}
+          testID="password"
         />
         <TouchableOpacity>
           <TypographyRegular

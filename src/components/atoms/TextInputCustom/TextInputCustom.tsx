@@ -1,5 +1,12 @@
 import React, { ReactElement } from 'react';
-import { KeyboardTypeOptions, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  KeyboardTypeOptions,
+  Platform,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { colors } from '../../../assets/colors';
 import HideIcon from '../../../assets/Images/svg/HideIcon';
 import ShowIcon from '../../../assets/Images/svg/ShowIcon';
@@ -21,6 +28,7 @@ interface TextInputCustomType {
   propfontSize?: number;
   proplineHeight?: number;
   isValid?: boolean;
+  testID?: string;
 }
 
 const TextInputCustom: React.FC<TextInputCustomType> = ({
@@ -38,6 +46,7 @@ const TextInputCustom: React.FC<TextInputCustomType> = ({
   onPressEye,
   keyboardType,
   isValid = true,
+  testID,
 }) => {
   return (
     <View
@@ -63,6 +72,7 @@ const TextInputCustom: React.FC<TextInputCustomType> = ({
         secureTextEntry={isHide}
         placeholderTextColor={colors.gray2}
         keyboardType={keyboardType}
+        testID={testID}
       />
       {isPassword && (
         <TouchableOpacity onPress={onPressEye}>

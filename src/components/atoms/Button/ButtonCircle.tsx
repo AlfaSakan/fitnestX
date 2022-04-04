@@ -9,15 +9,17 @@ interface ButtonCircleType {
   onPress(): void;
   color?: string[];
   icon?: React.ReactNode;
+  testID?: string;
 }
 
 const ButtonCircle: React.FC<ButtonCircleType> = ({
   onPress,
   color = colors.blueLinear,
   icon = <ArrowRight2Icon colorIcon={colors.white} width={18} height={18} />,
+  testID,
 }) => {
   return (
-    <TouchableOpacity style={styles.cornerPosition} onPress={onPress}>
+    <TouchableOpacity testID={testID} style={styles.cornerPosition} onPress={onPress}>
       <LinearGradient
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}

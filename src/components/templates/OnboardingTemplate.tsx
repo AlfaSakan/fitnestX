@@ -13,6 +13,7 @@ export type OnboardingTemplateType = {
   textTitle?: string;
   textBody?: string;
   onPress(): void;
+  testID?: string;
 };
 
 const OnboardingTemplate: React.FC<OnboardingTemplateType> = ({
@@ -20,6 +21,7 @@ const OnboardingTemplate: React.FC<OnboardingTemplateType> = ({
   textTitle,
   textBody,
   onPress,
+  testID,
 }) => {
   return (
     <View style={styles.container}>
@@ -40,7 +42,7 @@ const OnboardingTemplate: React.FC<OnboardingTemplateType> = ({
           lineHeight={lineHeight.mediumText}
         />
       </View>
-      <ButtonCircle onPress={onPress} />
+      <ButtonCircle testID={testID} onPress={onPress} />
     </View>
   );
 };

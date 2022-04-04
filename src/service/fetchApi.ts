@@ -9,7 +9,7 @@ export default async function (endPoint: string, method: string, input?: object)
     headers: {
       'content-type': 'application/json',
       'x-refresh': refreshToken,
-      authorization: accessToken,
+      authorization: `${accessToken}`,
     },
     body: JSON.stringify(input),
   });
@@ -27,9 +27,5 @@ export const fetchApiExercise = async (endPoint: string, method: string, headers
     },
   });
 
-  console.log(res);
-
-  const data = await res.json();
-
-  return data;
+  return await res.json();
 };

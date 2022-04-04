@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useReducer } from 'react';
 import Loader from '../../components/molecules/Loader/Loader';
 
 type Action = { type: 'loading' } | { type: 'loaded' };
@@ -6,7 +6,7 @@ type Dispatch = (action: Action) => void;
 type State = { loading: boolean };
 type LoadProviderProps = { children: React.ReactNode };
 
-const LoadStateContext = React.createContext<{ state: State; dispatch: Dispatch } | undefined>(
+const LoadStateContext = createContext<{ state: State; dispatch: Dispatch } | undefined>(
   undefined
 );
 
@@ -25,7 +25,7 @@ function loadReducer(state: State, action: Action) {
 }
 
 function LoadProvider({ children }: LoadProviderProps) {
-  const [state, dispatch] = React.useReducer(loadReducer, { loading: false });
+  const [state, dispatch] = useReducer(loadReducer, { loading: false });
   // NOTE: you *might* need to memoize this value
   // Learn more in http://kcd.im/optimize-context
   const value = { state, dispatch };
